@@ -83,6 +83,22 @@ body {
     border: 2px solid #a8874f; /* Golden border */
 }
 
+.event-infoMain {
+    width: 20%;
+    background-color: #ebddc0; /* Very light brownish-gray */
+    padding: 20px;
+    margin-top: 120px;
+    position: fixed;
+    right: 20px;
+    top: 100px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow-y: auto; /* Allows scrolling if content is too long */
+    max-height: calc(100vh - 120px); /* Adjust based on your layout */
+    border: 2px solid #a8874f; /* Initial Golden border (or starting brown) */
+}
+
+
 /* Content Sections */
 .content {
     width: 75%;
@@ -147,6 +163,12 @@ body {
 
     /* Event Info not fixed */
     .event-info {
+        position: static;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .event-infoMain {
         position: static;
         width: 100%;
         margin-bottom: 20px;
