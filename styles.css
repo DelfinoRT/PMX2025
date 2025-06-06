@@ -272,3 +272,91 @@ body {
             margin-bottom: 1.5rem;
             border: 4px solid #3b82f6; /* Blue border */
         }
+
+/* Styles for the Contact Form */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Spacing between form elements */
+    padding: 20px;
+    background-color: #ffffff; /* White background for the form, matching .section */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 1px solid #8d6e63; /* Medium brown border, matching .section */
+}
+
+.contact-form label {
+    font-weight: bold;
+    color: #5d4037; /* Dark brown text for labels */
+    margin-bottom: 5px;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #a8874f; /* Golden border for inputs */
+    border-radius: 5px;
+    font-family: 'Arial', sans-serif; /* Consistent font with buttons */
+    font-size: 16px;
+    color: #4a4a4a; /* Dark text in input fields */
+    background-color: #fcfcfc; /* Slightly off-white background for input fields */
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #f0c27b; /* Lighter golden border on focus */
+    box-shadow: 0 0 5px rgba(240, 194, 123, 0.5); /* Soft golden shadow on focus */
+}
+
+.contact-form textarea {
+    resize: vertical; /* Allow vertical resizing only */
+    min-height: 100px; /* Minimum height for the textarea */
+}
+
+.contact-form button[type="submit"] {
+    background-color: #a8874f; /* Golden background for the submit button */
+    border: 2px solid #a8874f; /* Golden border */
+    color: #3e2723; /* Dark brown text */
+    cursor: pointer;
+    padding: 12px 25px;
+    border-radius: 5px;
+    transition: all 0.4s ease;
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    align-self: flex-start; /* Align button to the start of the form */
+}
+
+.contact-form button[type="submit"]:hover {
+    background-color: #f0c27b; /* Lighter golden background on hover */
+    border: 2px solid #f0c27b; /* Lighter golden border on hover */
+    color: #3e2723; /* Dark brown text on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+/* Feedback message styles - already provided but ensure they are aligned */
+.feedback-message {
+    color: #d9534f; /* A more distinct red for error messages */
+    font-size: 0.85em;
+    margin-top: -10px; /* Pull it closer to the input field */
+    margin-bottom: 5px; /* Add some space before the next label */
+    display: none; /* Hidden by default */
+}
+
+.feedback-message.show {
+    display: block;
+}
+
+/* Adjustments for general content H2 for consistency */
+.content h2 {
+    color: #5d4037; /* Dark brown for main content headers */
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 2em;
+    border-bottom: 3px solid #f0c27b; /* Golden underline */
+    padding-bottom: 10px;
+}
