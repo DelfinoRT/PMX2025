@@ -1,55 +1,50 @@
 <!doctype html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>🦜 PeriquitosMex - ContactoX</title>
-        <link rel="stylesheet" href="styles.css" />
-    </head>
-    <body>
-                <div class="navbar">
-                        <a href="index.html">
-                <img src="recursos/PMX-Logo.png" alt="Logo" class="logo" />
-            </a>
-            <div class="logo-text">Es algo más que criar aves, es un estilo de vida...</div>
-                        <div class="menu">
-                <button data-page="/index.html">🐦 Sobre nosotros</button>
-                <button data-page="/familiapmx.html">🪶 Familia PMX</button>
-                <button data-page="/biblioteca.html">📖 Biblioteca</button>
-                <button data-page="/contacto.html">💌 Contacto</button>
-            </div>
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦜 PeriquitosMex - Contacto</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html">
+            <img src="recursos/PMX-Logo.png" alt="Logo" class="logo">
+        </a>
+        <div class="logo-text">Es algo más que criar aves, es un estilo de vida...</div>
+        <div class="menu">
+            <button data-page="/index.html">🐦 Sobre nosotros</button>
+            <button data-page="/familiapmx.html">🪶 Familia PMX</button>
+            <button data-page="/biblioteca.html">📖 Biblioteca</button>
+            <button data-page="/contacto.html">💌 Contacto</button>
+        </div>
+    </div>
 
-                <div class="main-body">
+    <div class="main-body">
+        <div class="content">
+            <h2>Contacto</h2>
+            <form class="contact-form" action="#" method="post">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+                <div id="nombre-feedback" class="feedback-message">El nombre no debe contener números y debe tener menos de 25 caracteres.</div>
 
-                        <div class="content">
-                <h2>Contacto</h2>
-                <form class="contact-form" action="#" method="post">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" required>
-                    <div id="nombre-feedback" class="feedback-message">El nombre no debe contener números y debe tener menos de 25 caracteres.</div>
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" name="email" required>
+                <div id="email-feedback" class="feedback-message">Por favor, introduce un correo electrónico válido.</div>
 
-                    <label for="email">Correo electrónico:</label>
-                    <input type="email" id="email" name="email" required>
-                    <div id="email-feedback" class="feedback-message">Por favor, introduce un correo electrónico válido.</div>
+                <label for="mensaje">Mensaje:</label>
+                <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+                <div id="mensaje-feedback" class="feedback-message">El mensaje no debe exceder los 400 caracteres.</div>
 
-                    <label for="mensaje">Mensaje:</label>
-                    <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
-                    <div id="mensaje-feedback" class="feedback-message">El mensaje no debe exceder los 400 caracteres.</div>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </div>
 
-                    <button type="submit">Enviar</button>
-                </form>
-            </div>
-        </div>6
-
-        <div>
-            <br><br>
-        </div>
-
-                <div class="footer">
-            <p>🦜 Comunidad Ornitológica de PeriquitosMex A.C. 2025 🦜</p>
-        </div>
-        <script id="ratufa_loader" src="https://www.ratufa.io/c/ld.js?f=clb22jvh&n=n1.ratufa.io"></script>
-        <script src="script.js"></script>
-    </body>
+    <div class="footer">
+        <p>🦜 Comunidad Ornitológica de PeriquitosMex A.C. 2025 🦜</p>
+    </div>
+    <script id="ratufa_loader" src="https://www.ratufa.io/c/ld.js?f=clb22jvh&n=n1.ratufa.io"></script>
+    <script src="script.js"></script>
+</body>
 </html>
