@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦜 PeriquitosMex - Juego de Mutaciones</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .game-container {
+            max-width: 720px;
+            margin: 2em auto;
+            background: #f9f6ef;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 2em;
+            text-align: center;
+        }
+        .game-container h2 {
+            margin-top: 0;
+        }
+        .intro-text {
+            max-width: 620px;
+            margin: 0 auto 1.5em auto;
+            font-size: 0.98em;
+            color: #4a3512;
+        }
+        .intro-text b {
+            font-weight: 700;
+        }
+        .module-btn {
+            margin: 0.25em;
+            padding: 0.7em 1.5em;
+            border-radius: 8px;
+            border: 1px solid #bfa16a;
+            background: #fffbe9;
+            color: #6d4c1b;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, transform 0.12s;
+        }
+        .module-btn:hover {
+            background: #ffe9b3;
+            transform: translateY(-1px);
+        }
+        .module-btn.active, .module-btn:active {
+            background: #e6d3b3;
+            font-weight: bold;
+        }
+        .trait-card {
+            display: inline-block;
+            background: #fff;
+            border: 2px solid #bfa16a;
+            border-radius: 10px;
+            margin: 0.5em;
+            padding: 1em;
+            min-width: 160px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            text-align: left;
+            font-size: 0.92em;
+        }
+        .trait-card .emoji {
+            font-size: 2em;
+            text-align: center;
+            display: block;
+            margin-bottom: 0.3em;
+        }
+        .puzzle-section {
+            margin-top: 1.4em;
+            margin-bottom: 1.6em;
+            padding: 1em 0 1.5em 0;
+            border-top: 1px dashed #d2b981;
+        }
+        .quiz-btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1em;
+            justify-content: center;
+            margin-top: 1.1em;
+            margin-bottom: 1.1em;
+        }
+        .quiz-btn, .puzzle-section button {
+            background: linear-gradient(90deg, #ffe9b3 0%, #fffbe9 100%) !important;
+            border: 2px solid #bfa16a !important;
+            border-radius: 18px !important;
+            padding: 0.6em 2em !important;
+            font-size: 0.95em !important;
+            font-family: 'Georgia', 'Arial', serif !important;
+            color: #6d4c1b !important;
+            font-weight: 700 !important;
+            cursor: pointer !important;
+            margin: 0.2em !important;
+            box-shadow: 0 2px 10px rgba(191,161,106,0.13), 0 1.5px 0 #e6d3b3 inset !important;
+            outline: none !important;
+            letter-spacing: 0.02em !important;
+            transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.12s !important;
+            position: relative !important;
+            display: inline-block !important;
+        }
+        .quiz-btn:hover, .quiz-btn:focus,
+        .puzzle-section button:hover, .puzzle-section button:focus {
+            background: linear-gradient(90deg, #ffe1a1 0%, #ffe9b3 100%) !important;
+            color: #4d3200 !important;
+            box-shadow: 0 4px 18px rgba(191,161,106,0.22), 0 2px 0 #e6d3b3 inset !important;
+            transform: translateY(-2px) scale(1.04) !important;
+        }
+        .quiz-btn:active,
+        .puzzle-section button:active {
+            background: linear-gradient(90deg, #ffe9b3 0%, #fffbe9 100%) !important;
+            color: #bfa16a !important;
+            box-shadow: 0 1px 2px rgba(191,161,106,0.10) !important;
+            transform: scale(0.98) !important;
+        }
+        .feedback {
+            margin-top: 0.6em;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .success {
+            color: #388e3c;
+        }
+        .fail {
+            color: #b71c1c;
+        }
+        .achievement {
+            margin-top: 1em;
+            background: #f5f5dc;
+            border: 1px solid #bfa16a;
+            border-radius: 8px;
+            padding: 0.7em;
+            color: #6d4c1b;
+            font-size: 0.9em;
+            text-align: left;
+        }
+        #progress {
+            margin-top: 1em;
+            font-size: 0.88em;
+            color: #6d4c1b;
+        }
+        .chapter-label {
+            margin-top: 1.2em;
+            font-size: 0.9em;
+            color: #8a6a34;
+        }
+        .chapter-label span {
+            font-weight: 700;
+        }
+        .navbar .menu button {
+            cursor: pointer;
+        }
+        @media (max-width: 600px) {
+            .game-container {
+                margin: 1em;
+                padding: 1.2em;
+            }
+            .module-btn {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html">
+            <img src="recursos/PMX-Logo.png" alt="Logo PeriquitosMex" class="logo">
+        </a>
+        <div class="logo-text" id="typing-text"></div>
+        <div class="menu">
+            <button data-page="/index.html">🐦 Sobre nosotros</button>
+            <button data-page="/familiapmx.html">🪶 Familia PMX</button>
+            <button data-page="/biblioteca.html">📖 Biblioteca</button>
+            <button data-page="/contacto.html">💌 Contacto</button>
+            <button data-page="/mutacionesjuego.html">🧬 Juego de mutaciones</button>
+        </div>
+    </div>
+
+    <div class="main-body">
+        <div class="game-container" id="game">
+            <h2>Juego - Aprende sobre las mutaciones de Periquitos</h2>
+            <br>
+            <p class="intro-text">
+                Eres un criador en entrenamiento en la comunidad <b>PeriquitosMex</b>.  
+                Aprende genética paso a paso con ejemplos reales de colores y mutaciones,  
+                responde retos rápidos y desbloquea logros como criador.
+            </p>
+
+            <div class="chapter-label">
+                <span>Capítulo 1:</span> Tu primer aviario (conceptos básicos)
+            </div>
+            <div id="modules">
+                <div style="margin-bottom:0.2em;"><button class="module-btn" type="button" onclick="startModule(1)" id="mod1">1. ¿Qué es la herencia?</button></div>
+                <div style="margin-bottom:0.2em;"><button class="module-btn" type="button" onclick="startModule(2)" id="mod2">2. Gen, alelo, genotipo y fenotipo</button></div>
+                <div style="margin-bottom:0.8em;"><button class="module-btn" type="button" onclick="startModule(3)" id="mod3">3. Diploidía, homocigosis y heterocigosis</button></div>
+
+                <div class="chapter-label">
+                    <span>Capítulo 2:</span> Colores base y factores
+                </div>
+                <div style="margin-bottom:0.2em;"><button class="module-btn" type="button" onclick="startModule(4)" id="mod4">4. Dominancia, recesividad e incompleta</button></div>
+                <div style="margin-bottom:0.2em;"><button class="module-btn" type="button" onclick="startModule(5)" id="mod5">5. Nomenclatura y ejemplos de genotipos</button></div>
+                <div style="margin-bottom:0.8em;"><button class="module-btn" type="button" onclick="startModule(7)" id="mod7">6. Herencia del color y factores</button></div>
+
+                <div class="chapter-label">
+                    <span>Capítulo 3:</span> Ondulación y variedades
+                </div>
+                <div style="margin-bottom:0.2em;"><button class="module-btn" type="button" onclick="startModule(8)" id="mod8">7. Ondulación y alas (alas grises, claras, diluidas)</button></div>
+                <div style="margin-bottom:0.8em;"><button class="module-btn" type="button" onclick="startModule(9)" id="mod9">8. Variedades dominantes, recesivas y ligadas al sexo</button></div>
+
+                <div class="chapter-label">
+                    <span>Capítulo 4:</span> Sexo y cruzamientos avanzados
+                </div>
+                <div style="margin-bottom:0.2em;"><button class="module-btn" type="button" onclick="startModule(6)" id="mod6">9. Herencia del sexo (versión juego)</button></div>
+                <div style="margin-bottom:0.2em;"><button class="module-btn" type="button" onclick="startModule(10)" id="mod10">10. Ejercicios y cruzamientos avanzados</button></div>
+            </div>
+
+            <div id="module-content"></div>
+            <div id="progress"></div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>🦜 Comunidad Ornitológica de PeriquitosMex A.C. <span id="year"></span> 🦜</p>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+    // --- Módulos y contenido actualizado ---
+    const modules = {
+        1: {
+            title: "Módulo 1: ¿Qué es la herencia?",
+            content: `
+                <br>
+                <div style='text-align:left;max-width:560px;margin:0 auto;'>
+                    <p>La <b>herencia</b> es el proceso por el cual los rasgos se transmiten genéticamente de padres a hijos. Cada rasgo visible, como el color del cuerpo o el tipo de alas, se llama <b>carácter</b> y está determinado por la información contenida en el ADN.</p>
+                    <p>En el ADN, cada fragmento que contiene la información para un carácter se llama <b>gen</b>. Existen distintas versiones de un mismo gen llamadas <b>alelos</b>, y por eso hay periquitos verdes, azules, amarillos, con alas claras, etc.</p>
+                    <div class="trait-card">
+                        <p><b>Ejemplo con periquitos:</b> El color de fondo del cuerpo (verde o azul) es un carácter. El gen que controla este carácter tiene alelos para la serie verde (dominante) y la serie azul (recesiva).</p>
+                    </div>
+                </div>
+                <div class="puzzle-section">
+                    <b>Pregunta 1:</b> ¿Cómo se llama el fragmento de ADN que contiene la información para un carácter?<br>
+                    <button onclick="feedback('1a', true)">Gen</button>
+                    <button onclick="feedback('1a', false)">Fenotipo</button>
+                    <div class="feedback" id="feedback1a"></div>
+                </div>
+                <div class="puzzle-section">
+                    <b>Pregunta 2:</b> ¿Qué nombre recibe cada una de las variantes de un gen?<br>
+                    <button onclick="feedback('1b', true)">Alelo</button>
+                    <button onclick="feedback('1b', false)">Cromosoma</button>
+                    <div class="feedback" id="feedback1b"></div>
+                </div>
+            `
+        },
+        2: {
+            title: "Módulo 2: Gen, alelo, genotipo y fenotipo",
+            content: `
+                <br>
+                <div style='text-align:left;max-width:560px;margin:0 auto;'>
+                    <p>Un <b>gen</b> puede tener varias formas llamadas <b>alelos</b>. Los periquitos, como seres diploides, tienen dos copias de cada gen (una del padre y otra de la madre) para cada carácter.</p>
+                    <ul>
+                        <li><b>Homocigótico:</b> Ambos alelos para un carácter son iguales (por ejemplo, azul/azul).</li>
+                        <li><b>Heterocigótico:</b> Los alelos para un carácter son diferentes (por ejemplo, verde/azul).</li>
+                    </ul>
+                    <p>El <b>genotipo</b> es el conjunto de alelos de un individuo. El <b>fenotipo</b> es cómo se ve ese periquito: su color, tipo de alas, etc.</p>
+                    <div class="trait-card">
+                        <p><b>Ejemplo:</b> Un periquito verde que es genéticamente Vv (verde/azul) tiene genotipo Vv y fenotipo verde. Para el ojo humano se ve verde, pero genéticamente porta azul.</p>
+                    </div>
+                </div>
+                <div class="puzzle-section">
+                    <b>Pregunta 1:</b> ¿Cómo se llama el conjunto de manifestaciones observables del genotipo?<br>
+                    <button onclick="feedback('2a', true)">Fenotipo</button>
+                    <button onclick="feedback('2a', false)">Genotipo</button>
+                    <div class="feedback" id="feedback2a"></div>
+                </div>
+                <div class="puzzle-section">
+                    <b>Pregunta 2:</b> ¿Qué significa que un periquito sea homocigótico para un carácter?<br>
+                    <button onclick="feedback('2b', true)">Que tiene dos alelos iguales para ese carácter</button>
+                    <button onclick="feedback('2b', false)">Que tiene dos alelos diferentes para ese carácter</button>
+                    <div class="feedback" id="feedback2b"></div>
+                </div>
+            `
+        },
+        3: {
+            title: "Módulo 3: Diploidía, homocigosis y heterocigosis",
+            content: `
+                <br>
+                <div style='text-align:left;max-width:560px;margin:0 auto;'>
+                    <p>Los periquitos son <b>diploides</b>: para cada gen tienen dos copias, una heredada de cada progenitor.</p>
+                    <ul>
+                        <li>Si ambos alelos son iguales: el periquito es <b>homocigótico</b>.</li>
+                        <li>Si son diferentes: es <b>heterocigótico</b>.</li>
+                    </ul>
+                    <p>Un periquito heterocigótico puede portar una mutación sin mostrarla. Por ejemplo, un verde Vv es portador de azul aunque se vea verde.</p>
+                    <div class="trait-card">
+                        <p><b>Ejemplo:</b> Dos periquitos verdes Vv (portadores de azul) pueden tener pollos verdes y también azules, porque la combinación vv aparece en algunos pollos.</p>
+                    </div>
+                </div>
+                <div class="puzzle-section">
+                    <b>Pregunta 1:</b> ¿Cómo se llama un individuo con dos alelos diferentes para un carácter?<br>
+                    <button onclick="feedback('3a', true)">Heterocigótico</button>
+                    <button onclick="feedback('3a', false)">Homocigótico</button>
+                    <div class="feedback" id="feedback3a"></div>
+                </div>
+                <div class="puzzle-section">
+                    <b>Pregunta 2:</b> ¿Qué significa ser diploide?<br>
+                    <button onclick="feedback('3b', true)">Tener dos copias de cada gen, una de cada progenitor</button>
+                    <button onclick="feedback('3b', false)">Tener un solo cromosoma</button>
+                    <div class="feedback" id="feedback3b"></div>
+                </div>
+            `
+        },
+        4: {
+            title: "Módulo 4: Dominancia, recesividad e incompleta",
+            content: `
+                <br>
+                <div style='text-align:left;max-width:560px;margin:0 auto;'>
+                    <p>En herencia, los alelos pueden comportarse de distintas formas:</p>
+                    <ul>
+                        <li><b>Dominantes:</b> Se manifiestan en el fenotipo siempre que están presentes (basta una copia).</li>
+                        <li><b>Recesivos:</b> Solo se manifiestan si están en ambas copias (homocigótico).</li>
+                        <li><b>Dominancia incompleta o codominancia:</b> Dos alelos distintos se expresan con fuerza similar y el fenotipo es intermedio.</li>
+                    </ul>
+                    <div class="trait-card">
+                        <p><b>Ejemplo clásico:</b> La serie verde (V) es dominante sobre la azul (v).  
+                        Un periquito Vv se ve verde, aunque porta azul. El factor oscuro (D) es un ejemplo de dominancia incompleta: Dd oscurece algo el color y DD lo oscurece más.</p>
+                    </div>
+                </div>
+                <div class="puzzle-section">
+                    <b>Pregunta:</b> ¿Qué tipo de alelo solo se manifiesta si está en ambas copias?<br>
+                    <button onclick="feedback('4a', true)">Recesivo</button>
+                    <button onclick="feedback('4a', false)">Dominante</button>
+                    <div class="feedback" id="feedback4a"></div>
+                </div>
+                <div class="puzzle-section">
+                    <b>Reto del aviario:</b> Tienes un macho verde Vv y una hembra azul vv. ¿Qué crías esperas?<br>
+                    <button onclick="feedback('4b', false)">100% verdes</button>
+                    <button onclick="feedback('4b', false)">100% azules</button>
+                    <button onclick="feedback('4b', true)">50% verdes / 50% azules</button>
+                    <div class="feedback" id="feedback4b"></div>
+                </div>
+            `
+        },
+        5: {
+            title: "Módulo 5: Nomenclatura y ejemplos de genotipos",
+            content: `
+                <br>
+                <div style='text-align:left;max-width:560px;margin:0 auto;'>
+                    <p>Para describir los <b>genotipos</b> en periquitos, se usan letras para cada carácter:</p>
+                    <ul>
+                        <li>Línea de color base: <b>V</b> = verde (dominante), <b>v</b> = azul (recesivo).</li>
+                        <li>Factor gris: <b>G</b> presente, <b>g</b> ausente (sin gris). [web:10]</li>
+                        <li>Factor violeta: <b>Vi</b> presente, <b>vi</b> ausente. [web:10]</li>
+                        <li>Factor oscuro: <b>D</b> presente, <b>d</b> ausente.</li>
+                        <li>Ondulación / alas: por ejemplo <b>On</b> (normal), <b>Og</b> (alas grises / greywing), <b>Oc</b> (clearwing), <b>Od</b> (dilute).</li>
+                    </ul>
+                    <div class="trait-card">
+
+                        <p><b>Ejemplo 1:</b> vv dd = azul cielo (Skyblue normal).<br>
+                        <b>Ejemplo 2:</b> vv Dd = cobalto (azul más oscuro).<br>
+                        <b>Ejemplo 3:</b> Vv Gg Dd OnOg = periquito verde grisáceo, algo oscuro, con alas algo aclaradas.</p>
+                    </div>
+                </div>
+                <div class="puzzle-section">
+                    <b>Pregunta:</b> ¿Qué significa "Vv" en un genotipo?</br>
+                    <button onclick="feedback('5a', true)">Heterocigótico para la línea verde (portador de azul)</button>
+                    <button onclick="feedback('5a', false)">Homocigótico para la línea verde</button>
+                    <div class="feedback" id="feedback5a"></div>
+                </div>
+            `
+        },
+        6: {
+            title: "Módulo 9: Herencia del sexo (versión juego)",
+            content: `
+                <br>
+                <div style='text-align:left;max-width:560px;margin:0 auto;'>
+                    <p>En la biología real, las aves usan cromosomas Z y W. Los machos son ZZ y las hembras ZW. [web:9]</p>
+                    <p>En este juego, para simplificar, representamos al macho como <b>XX</b> y a la hembra como <b>XY</b>. El sexo se determina por el cromosoma que aporta la hembra (X o Y, en nuestra notación).</p>
+                    <div class="trait-card">
+                        <p><b>Ejemplo:</b> Un macho XX y una hembra XY producen, en promedio, 50% crías XX (machos) y 50% crías XY (hembras).</p>
+                    </div>
+                </div>
+                <div class="puzzle-section">
+                    <b>Pregunta:</b> ¿Cuál es el genotipo de una hembra periquito en esta versión simplificada del juego?</br>
+                    <button onclick="feedback('6a', true)">XY</button>
+                    <button onclick="feedback('6a', false)">XX</button>
+                    <div class="feedback" id="feedback6a"></div>
+                </div>
+            `
+        },
+        7: {
+            title: "Módulo 6: Herencia del color y factores",
+            content: `
+                <br>
+                <div style='text-align:left;max-width:560px;margin:0 auto;'>
+                    <p>La serie verde (<b>V</b>) es dominante sobre la azul (<b>v</b>). Un periquito Vv se ve verde, pero puede tener pollos azules con la pareja adecuada. [web:9]</p>
+                    <p>Los factores oscuro (<b>D</b>) y gris (<b>G</b>) modifican la intensidad del color:</p>
+                    <ul>
+                        <li>Sin oscuro (dd) en azul: azul cielo (Skyblue). Dd: cobalto. DD: malva, azul muy oscuro. [web:10]</li>
+                        <li>Con gris (G-): en verdes da Greygreen (verde grisáceo), en azules da Grey (azul gris). [web:10][web:37]</li>
+                    </ul>
+                    <div class="trait-card">
+                        <p><b>Ejemplo:</b><br>
+                        vv dd = azul cielo.<br>
+                        vv Dd = cobalto (más intenso).<br>
+                        vv DD = malva (muy oscuro).<br>
+                        V- G- = Greygreen (verde con tono grisáceo).</p>
+                    </div>
+                </div>
+                <div class="puzzle-section">
+                    <b>Pregunta:</b> ¿Qué color de serie es dominante, verde o azul?</br>
+                    <div class="quiz-btn-group">
+                        <button class="quiz-btn" onclick="feedback('7a', true)">Verde</button>
+                        <button class="quiz-btn" onclick="feedback('7a', false)">Azul</button>
+                    </div>
+                    <div class="feedback" id="feedback7a"></div>
+                </div>
+                <div class="puzzle-section">
+                    <b>Reto de color:</b> Tienes un macho azul cielo vv dd y una hembra cobalto vv Dd. ¿Qué pollos esperas?</br>
+                    <button onclick="feedback('7b', false)">Todos azul cielo</button>
+                    <button onclick="feedback('7b', false)">Todos malva</button>
+                    <button onclick="feedback('7b', true)">50% azul cielo / 50% cobalto</button>
+                    <div class="feedback" id="feedback7b"></div>
+                </div>
+            `
+        },
+        8: {
+            title: "Módulo 7: Ondulación y alas (alas grises, claras, diluidas)",
+            content: `
+                <br>
+                <div style='text-align:left;max-width:560px;margin:0 auto;'>
+                    <p>La <b>ondulación</b> y el tipo de alas describen el dibujo de las plumas: barrado, intensidad y claridad.</p>
+                    <ul>
+                        <li><b>On</b> = ondulación normal: alas con barrado negro definido.</li>
+                        <li><b>Og</b> ≈ Greywing (alas grises): cuerpo más pastel, alas con barrado gris suave. [web:37]</li>
+                        <li><b>Oc</b> ≈ Clearwing: cuerpo intenso, alas muy claras con poco dibujo. [web:37]</li>
+                        <li><b>Od</b> ≈ Dilute: todo el cuerpo y alas muy aclarados, casi pastel muy suave. [web:37]</li>
+                    </ul>
+                    <p>En este modelo, el orden de dominancia es: On > Og/Oc (codominantes entre sí) > Od.</p>
+                    <div class="trait-card">
+                        <p><b>Ejemplo:</b> Un OnOd se ve casi normal, con ligero aclaramiento. Un OgOd se parece a un greywing (alas grisáceas y cuerpo pastel). Un OcOc se parece a un clearwing muy claro.</p>
+                    </div>
+                </div>
+                <div class="puzzle-section">
+                    <b>Pregunta:</b> ¿Cuál es la ondulación más recesiva en este modelo?</br>
+                    <button onclick="feedback('8a', true)">Diluida (Od)</button>
+                    <button onclick="feedback('8a', false)">Normal (On)</button>
+                    <div class="feedback" id="feedback8a"></div>
+                </div>
+            `
+        },
+        9: {
+            title: "Módulo 8: Variedades dominantes, recesivas y ligadas al sexo",
+            content: `
+                <br>
+                <div style='text-align:left;max-width:560px;margin:0 auto;'>
+                    <p>En periquitos hay muchas <b>variedades</b> que los aficionados reconocen: Spangle, Pío, Ino, Opalino, Canela, etc. [web:9][web:37]</p>
+                    <p>Las podemos agrupar así:</p>
+                    <ul>
+                        <li><b>Dominantes:</b> Spangle, Pío dominante (Pío australiano, clearflight pied).</li>
+                        <li><b>Recesivas:</b> Azul, Pío recesivo, algunas variedades diluidas.</li>
+                        <li><b>Ligadas al sexo:</b> Ino (albino/lutino), Opalino, Canela, Lacewing.</li>
+                    </ul>
+                    <div class="trait-card">
+                        <p><b>Ejemplo:</b> Un macho portador de Ino puede tener hijas Ino si transmite el alelo ligado al sexo correspondiente. En cambio, un rasgo dominante como Spangle se ve con solo una copia del alelo.</p>
+                    </div>
+                </div>
+                <div class="puzzle-section">
+                    <b>Pregunta:</b> ¿Qué tipo de carácter se considera cuando la mutación está en el cromosoma sexual y las hembras la expresan si la tienen?</br>
+                    <button onclick="feedback('9a', true)">Ligado al sexo</button>
+                    <button onclick="feedback('9a', false)">Dominante</button>
+                    <div class="feedback" id="feedback9a"></div>
+                </div>
+                <div class="puzzle-section">
+                    <b>Reto ligado al sexo:</b> Un macho portador de Ino y una hembra normal tienen pollos. ¿Quién puede nacer Ino?</br>
+                    <button onclick="feedback('9b', true)">Algunas hijas</button>
+                    <button onclick="feedback('9b', false)">Solo hijos</button>
+                    <button onclick="feedback('9b', false)">Nadie</button>
+                    <div class="feedback" id="feedback9b"></div>
+                </div>
+            `
+        },
+        10: {
+            title: "Módulo 10: Ejercicios y cruzamientos avanzados",
+            content: `
+                <br>
+                <div style='text-align:left;max-width:560px;margin:0 auto;'>
+                    <p>Ahora combinamos sexo, color, factores y tipo de alas en un solo ejercicio. No hace falta calcular todo de memoria, piensa en bloques: sexo, línea de color, factores y ondulación.</p>
+                    <p><b>Ejercicio:</b> Considera el siguiente cruce (en notación de juego simplificada):</p>
+                    <ul>
+                        <li>Macho: XX Vv Gg Dd OnOd</li>
+                        <li>Hembra: XY Vv dd OgOc</li>
+                    </ul>
+                    <p>Analiza por separado: sexo, verde/azul (V/v), gris (G/g), oscuro (D/d) y ondulación (On/Og/Oc/Od).</p>
+                </div>
+                <div class="puzzle-section">
+                    <b>Pregunta:</b> ¿Qué combinación de sexo esperas en la descendencia?</br>
+                    <button onclick="feedback('10a', true)">Aproximadamente 50% machos y 50% hembras</button>
+                    <button onclick="feedback('10a', false)">Solo machos</button>
+                    <button onclick="feedback('10a', false)">Solo hembras</button>
+                    <div class="feedback" id="feedback10a"></div>
+                </div>
+                <div class="puzzle-section">
+                    <b>Pregunta bonus:</b> Si ambos son Vv, ¿puede haber pollos azules (vv)?</br>
+                    <button onclick="feedback('10b', true)">Sí, algunos pollos pueden ser vv</button>
+                    <button onclick="feedback('10b', false)">No, todos serán verdes</button>
+                    <div class="feedback" id="feedback10b"></div>
+                </div>
+                <div class="trait-card">
+                    <span class="emoji">🏅</span>
+                    <p><b>Reto libre:</b> Intenta escribir todos los fenotipos posibles para este cruce: machos y hembras, verdes y azules, con y sin gris, con distintas ondulaciones. Es un buen entrenamiento para simuladores de cría.</p>
+                </div>
+            `
+        }
+    };
+
+    // Estado de progreso
+    let completedModules = new Set();
+
+    // Feedback con explicación
+    const feedbackExplanations = {
+        '1a': {
+            correct: '¡Correcto! Un gen es el fragmento de ADN que contiene la información para un carácter.',
+            wrong: 'La respuesta correcta es "Gen": es el fragmento de ADN que contiene la información para un carácter.'
+        },
+        '1b': {
+            correct: '¡Correcto! Cada variante de un gen se llama alelo.',
+            wrong: 'La respuesta correcta es "Alelo": cada variante de un gen se llama así.'
+        },
+        '2a': {
+            correct: '¡Correcto! El fenotipo es lo que vemos del genotipo.',
+            wrong: 'La respuesta correcta es "Fenotipo": es el conjunto de manifestaciones observables del genotipo.'
+        },
+        '2b': {
+            correct: '¡Correcto! Homocigótico significa dos alelos iguales para un carácter.',
+            wrong: 'La respuesta correcta es: "Que tiene dos alelos iguales para ese carácter".'
+        },
+        '3a': {
+            correct: '¡Correcto! Heterocigótico significa dos alelos diferentes para un carácter.',
+            wrong: 'La respuesta correcta es "Heterocigótico": tiene dos alelos diferentes para un carácter.'
+        },
+        '3b': {
+            correct: '¡Correcto! Ser diploide es tener dos copias de cada gen, una de cada progenitor.',
+            wrong: 'La respuesta correcta es: "Tener dos copias de cada gen, una de cada progenitor".'
+        },
+        '4a': {
+            correct: '¡Correcto! Un alelo recesivo solo se manifiesta si está en ambas copias.',
+            wrong: 'La respuesta correcta es "Recesivo": solo se manifiesta si está en ambas copias.'
+        },
+        '4b': {
+            correct: 'Exacto: 50% verdes (Vv) y 50% azules (vv). El padre aporta V o v, la madre siempre v.',
+            wrong: 'La respuesta correcta es 50% verdes y 50% azules: el padre aporta V o v, la madre siempre v.'
+        },
+        '5a': {
+            correct: '¡Correcto! Vv significa heterocigótico: verde visible, portador de azul.',
+            wrong: 'La respuesta correcta es: heterocigótico para la línea verde, portador de azul.'
+        },
+        '6a': {
+            correct: '¡Correcto! En este modelo simplificado usamos XY para la hembra.',
+            wrong: 'La respuesta correcta es "XY": así representamos a la hembra en el juego.'
+        },
+        '7a': {
+            correct: '¡Correcto! La serie verde es dominante sobre la azul.',
+            wrong: 'La respuesta correcta es "Verde": la serie verde domina sobre la azul.'
+        },
+        '7b': {
+            correct: 'Exacto: la mitad de los pollos serán azul cielo (dd) y la otra mitad cobalto (Dd).',
+            wrong: 'La respuesta correcta es 50% azul cielo y 50% cobalto: solo uno de los padres aporta el factor oscuro.'
+        },
+        '8a': {
+            correct: '¡Correcto! En este modelo, la ondulación diluida (Od) es la más recesiva.',
+            wrong: 'La respuesta correcta es "Diluida (Od)": es la más recesiva en este modelo.'
+        },
+        '9a': {
+            correct: '¡Correcto! Son caracteres ligados al sexo cuando la mutación está en el cromosoma sexual.',
+            wrong: 'La respuesta correcta es "Ligado al sexo": está en el cromosoma sexual.'
+        },
+        '9b': {
+            correct: 'Correcto: algunas hijas pueden ser Ino; los hijos pueden ser portadores, pero no la expresan.',
+            wrong: 'La respuesta correcta: algunas hijas serán Ino, los hijos solo pueden ser portadores.'
+        },
+        '10a': {
+            correct: '¡Exacto! Esperamos aproximadamente 50% machos y 50% hembras.',
+            wrong: 'La respuesta correcta: aproximadamente mitad machos y mitad hembras.'
+        },
+        '10b': {
+            correct: 'Correcto: al ser ambos Vv, la combinación vv es posible y produce pollos azules.',
+            wrong: 'La respuesta correcta es que sí: algunos pollos pueden ser vv, por eso pueden salir azules.'
+        }
+    };
+
+    function startModule(n) {
+        const moduleContent = document.getElementById('module-content');
+        if (moduleContent) moduleContent.innerHTML = '';
+        moduleContent.innerHTML = `
+            <h3>${modules[n].title}</h3>
+            ${modules[n].content}
+        `;
+        for (let i = 1; i <= 10; i++) {
+            const btn = document.getElementById('mod'+i);
+            if (btn) {
+                btn.classList.remove('active');
+                btn.disabled = false;
+                btn.setAttribute('aria-disabled', 'false');
+            }
+        }
+        const btn = document.getElementById('mod'+n);
+        if (btn) btn.classList.add('active');
+        updateProgress();
+    }
+
+    function feedback(qid, correct) {
+        const fb = document.getElementById('feedback'+qid);
+        if (!fb) return;
+        const exp = feedbackExplanations[qid];
+        if (correct) {
+            fb.innerHTML = `<span class="success">${exp?.correct || '¡Correcto!'}</span>`;
+            // Ensure only one module is counted per module, not per question
+            // Find the module number by searching for the first digit in qid
+            const modNumberMatch = String(qid).match(/^\d+/);
+            const modNumber = modNumberMatch ? modNumberMatch[0] : null;
+            if (modNumber && !completedModules.has(modNumber)) {
+                completedModules.add(modNumber);
+                maybeShowAchievement(modNumber);
+            }
+            updateProgress();
+        } else {
+            fb.innerHTML = `<span class="fail">${exp?.wrong || 'Incorrecto, inténtalo de nuevo.'}</span>`;
+        }
+    }
+
+    function updateProgress() {
+        const progress = document.getElementById('progress');
+        if (!progress) return;
+        const done = completedModules.size;
+        progress.textContent = `Progreso de criador: has completado ${done} de 10 módulos (respondiendo al menos una pregunta correctamente).`;
+    }
+
+    function showAchievement(text) {
+        const moduleContent = document.getElementById('module-content');
+        if (!moduleContent) return;
+        const div = document.createElement('div');
+        div.className = 'achievement';
+        div.textContent = text;
+        moduleContent.appendChild(div);
+    }
+
+    function maybeShowAchievement(modNumber) {
+        // Logros sencillos atados a módulos clave
+        if (modNumber === '4' && !localStorage.getItem('ach_dom')) {
+            localStorage.setItem('ach_dom', '1');
+            showAchievement('🏅 Logro: ¡Dominas la dominancia! Ya entiendes la diferencia entre alelos dominantes y recesivos.');
+        }
+        if (modNumber === '7' && !localStorage.getItem('ach_color')) {
+            localStorage.setItem('ach_color', '1');
+            showAchievement('🏅 Logro: Maestro de colores. Sabes cómo los factores oscuro y gris cambian el tono de tus periquitos.');
+        }
+        if (modNumber === '9' && !localStorage.getItem('ach_sex')) {
+            localStorage.setItem('ach_sex', '1');
+            showAchievement('🏅 Logro: Sabio de mutaciones ligadas al sexo. Puedes planear hijas Ino, Opalino o Canela con más seguridad.');
+        }
+    }
+
+    // Iniciar en el primer módulo
+    startModule(1);
+
+    // Año automático en el footer
+    document.addEventListener("DOMContentLoaded", function () {
+        var yearSpan = document.getElementById("year");
+        if (yearSpan) {
+            yearSpan.textContent = new Date().getFullYear();
+        }
+    });
+    </script>
+</body>
+</html>
