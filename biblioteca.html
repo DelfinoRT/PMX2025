@@ -11,7 +11,7 @@
         <a href="index.html">
             <img src="recursos/PMX-Logo.png" alt="Logo" class="logo">
         </a>
-        <div class="logo-text">Es algo más que criar aves, es un estilo de vida...</div>
+        <div class="logo-text" id="typing-text"></div>
         <div class="menu">
             <button data-page="/index.html">🐦 Sobre nosotros</button>
             <button data-page="/familiapmx.html">🪶 Familia PMX</button>
@@ -120,9 +120,18 @@
     </div>
 
     <div class="footer">
-        <p>🦜 Comunidad Ornitológica de PeriquitosMex A.C. 2025 🦜</p>
+        <p>🦜 Comunidad Ornitológica de PeriquitosMex A.C. <span id="year"></span> 🦜</p>
     </div>
 
     <script src="script.js"></script>
+<script src="script.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var yearSpan = document.getElementById("year");
+        if (yearSpan) {
+            yearSpan.textContent = new Date().getFullYear();
+        }
+    });
+</script>
 </body>
 </html>

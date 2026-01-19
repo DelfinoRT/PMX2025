@@ -11,7 +11,7 @@
         <a href="index.html">
             <img src="recursos/PMX-Logo.png" alt="Logo" class="logo">
         </a>
-        <div class="logo-text">Es algo más que criar aves, es un estilo de vida...</div>
+        <div class="logo-text" id="typing-text"></div>
         <div class="menu">
             <button data-page="/index.html">🐦 Sobre nosotros</button>
             <button data-page="/familiapmx.html">🪶 Familia PMX</button>
@@ -23,6 +23,11 @@
     <div class="main-body">
         <div class="content">
             <h2>Contacto</h2>
+            <p class="contact-invite">
+                ¿Necesitas información o realizar alguna consulta?<br>
+                Puedes enviarnos tu petición mediante este formulario.<br>
+                ¡Estamos aquí para ayudarte y responderemos lo antes posible!
+            </p>
             <form class="contact-form" action="#" method="post">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" required>
@@ -33,18 +38,27 @@
                 <div id="email-feedback" class="feedback-message">Por favor, introduce un correo electrónico válido.</div>
 
                 <label for="mensaje">Mensaje:</label>
-                <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
-                <div id="mensaje-feedback" class="feedback-message">El mensaje no debe exceder los 400 caracteres.</div>
+                <textarea id="mensaje" name="mensaje" rows="5" required placeholder="Escribe aquí tu mensaje o consulta..."></textarea>
+                <div id="mensaje-feedback" class="feedback-message">Por favor, cuéntanos en detalle tu consulta. El mensaje no debe exceder los 400 caracteres.</div>
 
-                <button type="submit">Enviar</button>
+                <button type="submit">Enviar mensaje</button>
             </form>
         </div>
     </div>
 
     <div class="footer">
-        <p>🦜 Comunidad Ornitológica de PeriquitosMex A.C. 2025 🦜</p>
+        <p>🦜 Comunidad Ornitológica de PeriquitosMex A.C. <span id="year"></span> 🦜</p>
     </div>
     <script id="ratufa_loader" src="https://www.ratufa.io/c/ld.js?f=clb22jvh&n=n1.ratufa.io"></script>
     <script src="script.js"></script>
+<script src="script.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var yearSpan = document.getElementById("year");
+        if (yearSpan) {
+            yearSpan.textContent = new Date().getFullYear();
+        }
+    });
+</script>
 </body>
 </html>

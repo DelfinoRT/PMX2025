@@ -1,3 +1,84 @@
+.feather-emoji {
+    display: inline-block;
+    /* Opacity is set inline by JS for each feather */
+}
+/* Falling feather effect */
+
+.falling-feather {
+    position: fixed;
+    top: -40px;
+    z-index: 9999;
+    pointer-events: none;
+    user-select: none;
+    will-change: transform, opacity;
+    animation: feather-fall linear forwards;
+    /* Allow transform override for mirroring */
+}
+
+@keyframes feather-fall {
+    0% {
+        transform: translateY(0) rotate(-10deg);
+        opacity: 1;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        /* Use custom property for end height */
+        transform: translateY(var(--endY, 100vh)) rotate(20deg);
+        opacity: 0;
+    }
+}
+/* Improved style for contact form invite message */
+.contact-invite {
+    background: #f5f5dc;
+    border: 1px solid #d2b48c;
+    color: #5a4327;
+    padding: 1em 1.5em;
+    margin-bottom: 1.5em;
+    border-radius: 8px;
+    font-size: 1.08em;
+    font-weight: 500;
+    box-shadow: 0 1px 4px rgba(160,120,60,0.06);
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+}
+/* Clubs Table Section */
+.clubs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2em 0;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.clubs-table th, .clubs-table td {
+    padding: 0.8em 1em;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+.clubs-table th {
+    background: #f5f5dc;
+    color: #3e2723;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+}
+.club-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #f0f0e0;
+    border: 1px solid #e0e0e0;
+}
+.visit-link {
+    display: inline-block;
+    color: #a8874f;
+    font-size: 1.5em;
+    transition: color 0.2s;
+}
+.visit-link:hover {
+    color: #e6cfa7;
+}
 /* Basic Reset */
 * {
     margin: 0;
@@ -57,6 +138,17 @@ body {
     background-color: #a8874f; /* Golden background on hover */
     border: 2px solid #f0c27b; /* Lighter golden border on hover */
     color: #3e2723; /* Dark brown text on hover */
+}
+
+/* Neon green glow for active menu button */
+.navbar .menu button.active {
+    background: rgba(200, 170, 120, 0.08);
+    color: #a8874f;
+    border-color: #e6cfa7;
+    box-shadow: 0 0 4px 1px #e6cfa7;
+    text-shadow: none;
+    z-index: 1;
+    transition: box-shadow 0.3s, background 0.3s, color 0.3s;
 }
 
 /* Main Page Body */
