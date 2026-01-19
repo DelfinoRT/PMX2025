@@ -208,7 +208,7 @@
                 <div class="chapter-label">
                     <span>Capítulo 4:</span> Sexo y cruzamientos avanzados
                 </div>
-                <div style="margin-bottom:0.2em;"><button class="module-btn" type="button" onclick="startModule(6)" id="mod6">9. Herencia del sexo (versión juego)</button></div>
+                <div style="margin-bottom:0.2em;"><button class="module-btn" type="button" onclick="startModule(6)" id="mod6">9. Herencia del sexo</button></div>
                 <div style="margin-bottom:0.2em;"><button class="module-btn" type="button" onclick="startModule(10)" id="mod10">10. Ejercicios y cruzamientos avanzados</button></div>
             </div>
 
@@ -230,11 +230,14 @@
             content: `
                 <br>
                 <div style='text-align:left;max-width:560px;margin:0 auto;'>
-                    <p>La <b>herencia</b> es el proceso por el cual los rasgos se transmiten genéticamente de padres a hijos. Cada rasgo visible, como el color del cuerpo o el tipo de alas, se llama <b>carácter</b> y está determinado por la información contenida en el ADN.</p>
-                    <p>En el ADN, cada fragmento que contiene la información para un carácter se llama <b>gen</b>. Existen distintas versiones de un mismo gen llamadas <b>alelos</b>, y por eso hay periquitos verdes, azules, amarillos, con alas claras, etc.</p>
+                    <p><b>Herencia</b> es el proceso por el cual los padres transmiten sus características a sus hijos a través de la información genética. En los periquitos, esto explica por qué los pollos pueden parecerse a sus padres, abuelos o incluso mostrar colores inesperados.</p>
+                    <p>Cada característica visible, como el color del cuerpo, el tipo de alas o el patrón de las plumas, se llama <b>carácter</b>. Los caracteres están determinados por instrucciones específicas en el ADN.</p>
+                    <p>Un <b>gen</b> es un fragmento de ADN que contiene la información para un carácter específico. Por ejemplo, hay un gen que determina el color base del periquito.</p>
+                    <p>Para cada gen, existen diferentes versiones llamadas <b>alelos</b>. Los alelos son responsables de la variedad de colores y patrones que vemos en los periquitos. Por ejemplo, un gen puede tener un alelo para el color verde y otro para el azul.</p>
                     <div class="trait-card">
-                        <p><b>Ejemplo con periquitos:</b> El color de fondo del cuerpo (verde o azul) es un carácter. El gen que controla este carácter tiene alelos para la serie verde (dominante) y la serie azul (recesiva).</p>
+                        <p><b>Ejemplo con periquitos:</b> El color de fondo del cuerpo (verde o azul) es un carácter. El gen que controla este carácter tiene dos alelos principales: uno para la serie verde (dominante) y otro para la serie azul (recesiva). Si un periquito hereda el alelo verde de uno de sus padres, se verá verde, aunque también tenga el alelo azul.</p>
                     </div>
+                    <p><i>Piensa en los genes como recetas y en los alelos como versiones diferentes de esa receta. Así, puedes tener una receta para pastel (gen), pero con diferentes sabores (alelos).</i></p>
                 </div>
                 <div class="puzzle-section">
                     <b>Pregunta 1:</b> ¿Cómo se llama el fragmento de ADN que contiene la información para un carácter?<br>
@@ -251,48 +254,45 @@
             `
         },
         2: {
-            title: "Módulo 2: Gen, alelo, genotipo y fenotipo",
+            title: "Módulo 2: Gen, alelo y cromosomas",
             content: `
                 <br>
                 <div style='text-align:left;max-width:560px;margin:0 auto;'>
-                    <p>Un <b>gen</b> puede tener varias formas llamadas <b>alelos</b>. Los periquitos, como seres diploides, tienen dos copias de cada gen (una del padre y otra de la madre) para cada carácter.</p>
-                    <ul>
-                        <li><b>Homocigótico:</b> Ambos alelos para un carácter son iguales (por ejemplo, azul/azul).</li>
-                        <li><b>Heterocigótico:</b> Los alelos para un carácter son diferentes (por ejemplo, verde/azul).</li>
-                    </ul>
-                    <p>El <b>genotipo</b> es el conjunto de alelos de un individuo. El <b>fenotipo</b> es cómo se ve ese periquito: su color, tipo de alas, etc.</p>
+                    <p>Un <b>gen</b> es una unidad de información en el ADN que determina un carácter. Cada gen puede tener varias formas llamadas <b>alelos</b>, que son responsables de las diferencias entre individuos.</p>
+                    <p>Los genes se encuentran en los <b>cromosomas</b>, que son estructuras dentro de las células. Los periquitos tienen pares de cromosomas: uno de cada padre. Así, para cada gen, hay dos copias (una en cada cromosoma del par).</p>
                     <div class="trait-card">
-                        <p><b>Ejemplo:</b> Un periquito verde que es genéticamente Vv (verde/azul) tiene genotipo Vv y fenotipo verde. Para el ojo humano se ve verde, pero genéticamente porta azul.</p>
+                        <p><b>Ejemplo:</b> El gen del color base tiene un alelo para verde y otro para azul. Si un periquito hereda el alelo verde de su madre y el azul de su padre, tendrá ambos alelos.</p>
                     </div>
+                    <p><i>Piensa en los cromosomas como "libros" de recetas, y los genes como las recetas individuales. Los alelos son versiones diferentes de una misma receta.</i></p>
                 </div>
                 <div class="puzzle-section">
-                    <b>Pregunta 1:</b> ¿Cómo se llama el conjunto de manifestaciones observables del genotipo?<br>
-                    <button onclick="feedback('2a', true)">Fenotipo</button>
-                    <button onclick="feedback('2a', false)">Genotipo</button>
+                    <b>Pregunta 1:</b> ¿Dónde se encuentran los genes dentro de la célula?</br>
+                    <button onclick="feedback('2a', true)">En los cromosomas</button>
+                    <button onclick="feedback('2a', false)">En la membrana celular</button>
                     <div class="feedback" id="feedback2a"></div>
                 </div>
                 <div class="puzzle-section">
-                    <b>Pregunta 2:</b> ¿Qué significa que un periquito sea homocigótico para un carácter?<br>
-                    <button onclick="feedback('2b', true)">Que tiene dos alelos iguales para ese carácter</button>
-                    <button onclick="feedback('2b', false)">Que tiene dos alelos diferentes para ese carácter</button>
+                    <b>Pregunta 2:</b> ¿Qué es un alelo?</br>
+                    <button onclick="feedback('2b', true)">Una versión de un gen</button>
+                    <button onclick="feedback('2b', false)">Un tipo de célula</button>
                     <div class="feedback" id="feedback2b"></div>
                 </div>
             `
         },
         3: {
-            title: "Módulo 3: Diploidía, homocigosis y heterocigosis",
+            title: "Módulo 3: Genotipo, fenotipo, homocigosis y heterocigosis",
             content: `
                 <br>
                 <div style='text-align:left;max-width:560px;margin:0 auto;'>
-                    <p>Los periquitos son <b>diploides</b>: para cada gen tienen dos copias, una heredada de cada progenitor.</p>
+                    <p>El <b>genotipo</b> es la combinación de alelos que tiene un individuo para uno o varios caracteres. El <b>fenotipo</b> es la manifestación visible de esos genes: el color, el tipo de alas, el patrón, etc.</p>
                     <ul>
-                        <li>Si ambos alelos son iguales: el periquito es <b>homocigótico</b>.</li>
-                        <li>Si son diferentes: es <b>heterocigótico</b>.</li>
+                        <li><b>Homocigótico:</b> Cuando ambos alelos para un carácter son iguales (por ejemplo, vv para azul o VV para verde). El periquito solo puede transmitir ese alelo a su descendencia.</li>
+                        <li><b>Heterocigótico:</b> Cuando los alelos para un carácter son diferentes (por ejemplo, Vv: uno verde y uno azul). El periquito puede transmitir cualquiera de los dos alelos a sus pollos.</li>
                     </ul>
-                    <p>Un periquito heterocigótico puede portar una mutación sin mostrarla. Por ejemplo, un verde Vv es portador de azul aunque se vea verde.</p>
                     <div class="trait-card">
-                        <p><b>Ejemplo:</b> Dos periquitos verdes Vv (portadores de azul) pueden tener pollos verdes y también azules, porque la combinación vv aparece en algunos pollos.</p>
+                        <p><b>Ejemplo:</b> Un periquito verde con genotipo Vv (verde/azul) se ve verde (fenotipo), pero puede tener pollos azules si se cruza con otro portador de azul. Si ambos padres son Vv, pueden nacer pollos verdes y azules.</p>
                     </div>
+                    <p><i>El genotipo es como la "receta interna" y el fenotipo es el "platillo final" que vemos. Homocigosis y heterocigosis explican por qué a veces nacen pollos de colores inesperados.</i></p>
                 </div>
                 <div class="puzzle-section">
                     <b>Pregunta 1:</b> ¿Cómo se llama un individuo con dos alelos diferentes para un carácter?<br>
@@ -301,28 +301,76 @@
                     <div class="feedback" id="feedback3a"></div>
                 </div>
                 <div class="puzzle-section">
-                    <b>Pregunta 2:</b> ¿Qué significa ser diploide?<br>
-                    <button onclick="feedback('3b', true)">Tener dos copias de cada gen, una de cada progenitor</button>
-                    <button onclick="feedback('3b', false)">Tener un solo cromosoma</button>
+                    <b>Pregunta 2:</b> ¿Qué significa ser homocigótico?</br>
+                    <button onclick="feedback('3b', true)">Tener dos alelos iguales para un carácter</button>
+                    <button onclick="feedback('3b', false)">Tener dos alelos diferentes</button>
                     <div class="feedback" id="feedback3b"></div>
                 </div>
             `
         },
+                11: {
+                    title: "Módulo 11: Mutaciones ligadas al sexo",
+                    content: `
+                        <br>
+                        <div style='text-align:left;max-width:560px;margin:0 auto;'>
+                            <p>Algunas mutaciones en periquitos están <b>ligadas al sexo</b>, es decir, el gen responsable se encuentra en el cromosoma sexual. En aves, los machos son XX y las hembras XY (en la notación simplificada de este juego).</p>
+                            <p>Las mutaciones ligadas al sexo, como <b>Ino</b> (albino/lutino), <b>Canela</b> y <b>Opalino</b>, se expresan de manera diferente en machos y hembras:</p>
+                            <ul>
+                                <li>Las hembras expresan la mutación si tienen el alelo correspondiente en su único cromosoma X.</li>
+                                <li>Los machos pueden ser portadores (tener un solo alelo) o mostrar la mutación (si tienen dos alelos).</li>
+                            </ul>
+                            <div class="trait-card">
+                                <p><b>Ejemplo:</b> Un macho portador de Ino (X<sup>ino</sup>X) y una hembra normal (X Y) pueden tener hijas Ino y machos portadores.</p>
+                            </div>
+                            <p><i>¡Por eso a veces solo las hijas muestran ciertas mutaciones, mientras los machos solo las portan!</i></p>
+                        </div>
+                        <div class="puzzle-section">
+                            <b>Pregunta:</b> ¿Por qué las hembras expresan más fácilmente las mutaciones ligadas al sexo?</br>
+                            <button onclick="feedback('11a', true)">Porque solo tienen un cromosoma X</button>
+                            <button onclick="feedback('11a', false)">Porque tienen dos cromosomas X</button>
+                            <div class="feedback" id="feedback11a"></div>
+                        </div>
+                    `
+                },
+                12: {
+                    title: "Módulo 12: Mutaciones semidominantes y Spangle",
+                    content: `
+                        <br>
+                        <div style='text-align:left;max-width:560px;margin:0 auto;'>
+                            <p>Algunas mutaciones, como <b>Spangle</b>, muestran <b>herencia semidominante</b> o incompleta. Esto significa que el fenotipo de los individuos heterocigotos es diferente al de los homocigotos.</p>
+                            <ul>
+                                <li><b>Homocigoto Spangle (SpSp):</b> El periquito tiene un patrón muy claro y característico, con menos barrado y más blanco o amarillo.</li>
+                                <li><b>Heterocigoto Spangle (Sp+):</b> El patrón Spangle es visible, pero menos intenso. El ave muestra una mezcla entre el patrón normal y el Spangle.</li>
+                                <li><b>Normal (++):</b> Sin el gen Spangle, el periquito tiene el patrón clásico.</li>
+                            </ul>
+                            <div class="trait-card">
+                                <p><b>Ejemplo:</b> Si cruzas dos Spangle heterocigotos, puedes obtener pollos normales, Spangle heterocigotos y Spangle homocigotos, cada uno con un aspecto diferente.</p>
+                            </div>
+                            <p><i>¡La herencia semidominante añade aún más variedad y belleza a los periquitos!</i></p>
+                        </div>
+                        <div class="puzzle-section">
+                            <b>Pregunta:</b> ¿Qué resultado esperas al cruzar dos Spangle heterocigotos?</br>
+                            <button onclick="feedback('12a', true)">Pollos normales, Spangle heterocigotos y Spangle homocigotos</button>
+                            <button onclick="feedback('12a', false)">Solo Spangle homocigotos</button>
+                            <div class="feedback" id="feedback12a"></div>
+                        </div>
+                    `
+                },
         4: {
             title: "Módulo 4: Dominancia, recesividad e incompleta",
             content: `
                 <br>
                 <div style='text-align:left;max-width:560px;margin:0 auto;'>
-                    <p>En herencia, los alelos pueden comportarse de distintas formas:</p>
+                    <p>Los alelos pueden interactuar de diferentes maneras para determinar el fenotipo:</p>
                     <ul>
-                        <li><b>Dominantes:</b> Se manifiestan en el fenotipo siempre que están presentes (basta una copia).</li>
-                        <li><b>Recesivos:</b> Solo se manifiestan si están en ambas copias (homocigótico).</li>
-                        <li><b>Dominancia incompleta o codominancia:</b> Dos alelos distintos se expresan con fuerza similar y el fenotipo es intermedio.</li>
+                        <li><b>Dominantes:</b> Un alelo dominante se expresa en el fenotipo aunque solo esté presente en una de las dos copias. Por ejemplo, el alelo verde (V) es dominante: basta con tener un solo V para que el periquito se vea verde.</li>
+                        <li><b>Recesivos:</b> Un alelo recesivo solo se expresa si está presente en ambas copias (homocigótico). Por ejemplo, para que un periquito sea azul (v), debe tener vv.</li>
+                        <li><b>Dominancia incompleta o codominancia:</b> A veces, dos alelos diferentes se expresan juntos, produciendo un fenotipo intermedio o una mezcla. Por ejemplo, el factor oscuro (D) muestra dominancia incompleta: Dd oscurece un poco el color, DD lo oscurece mucho.</li>
                     </ul>
                     <div class="trait-card">
-                        <p><b>Ejemplo clásico:</b> La serie verde (V) es dominante sobre la azul (v).  
-                        Un periquito Vv se ve verde, aunque porta azul. El factor oscuro (D) es un ejemplo de dominancia incompleta: Dd oscurece algo el color y DD lo oscurece más.</p>
+                        <p><b>Ejemplo:</b> Si cruzas un periquito verde Vv (dominante) con uno azul vv (recesivo), la mitad de los pollos serán verdes (Vv) y la otra mitad azules (vv). El factor oscuro (D) es otro ejemplo: Dd = color intermedio, DD = color más oscuro.</p>
                     </div>
+                    <p><i>Recuerda: dominante = "gana" con una sola copia; recesivo = necesita las dos copias para mostrarse.</i></p>
                 </div>
                 <div class="puzzle-section">
                     <b>Pregunta:</b> ¿Qué tipo de alelo solo se manifiesta si está en ambas copias?<br>
@@ -344,20 +392,21 @@
             content: `
                 <br>
                 <div style='text-align:left;max-width:560px;margin:0 auto;'>
-                    <p>Para describir los <b>genotipos</b> en periquitos, se usan letras para cada carácter:</p>
+                    <p>Para describir los <b>genotipos</b> de los periquitos, se usan letras para cada carácter genético. Esto ayuda a los criadores a entender y predecir los colores y patrones de los pollos.</p>
                     <ul>
-                        <li>Línea de color base: <b>V</b> = verde (dominante), <b>v</b> = azul (recesivo).</li>
-                        <li>Factor gris: <b>G</b> presente, <b>g</b> ausente (sin gris). [web:10]</li>
-                        <li>Factor violeta: <b>Vi</b> presente, <b>vi</b> ausente. [web:10]</li>
-                        <li>Factor oscuro: <b>D</b> presente, <b>d</b> ausente.</li>
-                        <li>Ondulación / alas: por ejemplo <b>On</b> (normal), <b>Og</b> (alas grises / greywing), <b>Oc</b> (clearwing), <b>Od</b> (dilute).</li>
+                        <li><b>Línea de color base:</b> <b>V</b> = verde (dominante), <b>v</b> = azul (recesivo).</li>
+                        <li><b>Factor gris:</b> <b>G</b> presente, <b>g</b> ausente (sin gris).</li>
+                        <li><b>Factor violeta:</b> <b>Vi</b> presente, <b>vi</b> ausente.</li>
+                        <li><b>Factor oscuro:</b> <b>D</b> presente, <b>d</b> ausente.</li>
+                        <li><b>Ondulación / alas:</b> <b>On</b> (normal), <b>Og</b> (alas grises / greywing), <b>Oc</b> (clearwing), <b>Od</b> (dilute).</li>
                     </ul>
                     <div class="trait-card">
-
-                        <p><b>Ejemplo 1:</b> vv dd = azul cielo (Skyblue normal).<br>
-                        <b>Ejemplo 2:</b> vv Dd = cobalto (azul más oscuro).<br>
-                        <b>Ejemplo 3:</b> Vv Gg Dd OnOg = periquito verde grisáceo, algo oscuro, con alas algo aclaradas.</p>
+                        <p><b>Ejemplo 1:</b> <b>vv dd</b> = azul cielo (Skyblue normal).<br>
+                        <b>Ejemplo 2:</b> <b>vv Dd</b> = cobalto (azul más oscuro, por el factor oscuro).<br>
+                        <b>Ejemplo 3:</b> <b>Vv Gg Dd OnOg</b> = periquito verde grisáceo, algo oscuro, con alas parcialmente aclaradas.<br>
+                        <b>Ejemplo 4:</b> <b>VV GG DD OnOn</b> = periquito verde intenso, con gris y alas normales.</p>
                     </div>
+                    <p><i>Leer el genotipo es como leer la "ficha técnica" de cada periquito: puedes saber qué colores y factores puede transmitir a sus pollos.</i></p>
                 </div>
                 <div class="puzzle-section">
                     <b>Pregunta:</b> ¿Qué significa "Vv" en un genotipo?</br>
@@ -372,11 +421,12 @@
             content: `
                 <br>
                 <div style='text-align:left;max-width:560px;margin:0 auto;'>
-                    <p>En la biología real, las aves usan cromosomas Z y W. Los machos son ZZ y las hembras ZW. [web:9]</p>
-                    <p>En este juego, para simplificar, representamos al macho como <b>XX</b> y a la hembra como <b>XY</b>. El sexo se determina por el cromosoma que aporta la hembra (X o Y, en nuestra notación).</p>
+                    <p>En las aves, el sexo se determina de manera diferente que en los mamíferos. En la naturaleza, los machos son ZZ y las hembras ZW. Para simplificar en este juego, usamos XX para macho y XY para hembra.</p>
+                    <p>El sexo de los pollos depende del cromosoma que aporta la madre. Si aporta X, el pollo será macho (XX); si aporta Y, será hembra (XY).</p>
                     <div class="trait-card">
-                        <p><b>Ejemplo:</b> Un macho XX y una hembra XY producen, en promedio, 50% crías XX (machos) y 50% crías XY (hembras).</p>
+                        <p><b>Ejemplo:</b> Un macho XX y una hembra XY pueden tener pollos XX (machos) o XY (hembras), aproximadamente en partes iguales. Así, en cada nido puedes esperar tanto machos como hembras.</p>
                     </div>
+                    <p><i>En la cría, esto es importante para entender cómo se transmiten algunas mutaciones ligadas al sexo, como Ino o Canela.</i></p>
                 </div>
                 <div class="puzzle-section">
                     <b>Pregunta:</b> ¿Cuál es el genotipo de una hembra periquito en esta versión simplificada del juego?</br>
@@ -391,19 +441,22 @@
             content: `
                 <br>
                 <div style='text-align:left;max-width:560px;margin:0 auto;'>
-                    <p>La serie verde (<b>V</b>) es dominante sobre la azul (<b>v</b>). Un periquito Vv se ve verde, pero puede tener pollos azules con la pareja adecuada. [web:9]</p>
-                    <p>Los factores oscuro (<b>D</b>) y gris (<b>G</b>) modifican la intensidad del color:</p>
+                    <p>El color base de los periquitos depende de la serie verde (<b>V</b>, dominante) y la serie azul (<b>v</b>, recesiva). Un periquito con al menos un alelo V se verá verde, aunque también tenga v.</p>
+                    <p>Los <b>factores</b> como el oscuro (<b>D</b>) y el gris (<b>G</b>) modifican la intensidad y el tono del color:</p>
                     <ul>
-                        <li>Sin oscuro (dd) en azul: azul cielo (Skyblue). Dd: cobalto. DD: malva, azul muy oscuro. [web:10]</li>
-                        <li>Con gris (G-): en verdes da Greygreen (verde grisáceo), en azules da Grey (azul gris). [web:10][web:37]</li>
+                        <li>Sin oscuro (<b>dd</b>) en azul: azul cielo (Skyblue).</li>
+                        <li><b>Dd</b>: cobalto (azul más intenso).</li>
+                        <li><b>DD</b>: malva (azul muy oscuro).</li>
+                        <li>Con gris (<b>G-</b>): en verdes da Greygreen (verde grisáceo), en azules da Grey (azul gris).</li>
                     </ul>
                     <div class="trait-card">
                         <p><b>Ejemplo:</b><br>
-                        vv dd = azul cielo.<br>
-                        vv Dd = cobalto (más intenso).<br>
-                        vv DD = malva (muy oscuro).<br>
-                        V- G- = Greygreen (verde con tono grisáceo).</p>
+                        <b>vv dd</b> = azul cielo.<br>
+                        <b>vv Dd</b> = cobalto.<br>
+                        <b>vv DD</b> = malva.<br>
+                        <b>V- G-</b> = Greygreen (verde con tono grisáceo).</p>
                     </div>
+                    <p><i>Al combinar estos factores, puedes obtener una gran variedad de colores en tus pollos. ¡Experimenta con los cruces y observa los resultados!</i></p>
                 </div>
                 <div class="puzzle-section">
                     <b>Pregunta:</b> ¿Qué color de serie es dominante, verde o azul?</br>
@@ -427,17 +480,18 @@
             content: `
                 <br>
                 <div style='text-align:left;max-width:560px;margin:0 auto;'>
-                    <p>La <b>ondulación</b> y el tipo de alas describen el dibujo de las plumas: barrado, intensidad y claridad.</p>
+                    <p>La <b>ondulación</b> y el tipo de alas determinan el dibujo y la intensidad de las plumas en los periquitos. Hay varias variantes, cada una con su propio efecto visual:</p>
                     <ul>
-                        <li><b>On</b> = ondulación normal: alas con barrado negro definido.</li>
-                        <li><b>Og</b> ≈ Greywing (alas grises): cuerpo más pastel, alas con barrado gris suave. [web:37]</li>
-                        <li><b>Oc</b> ≈ Clearwing: cuerpo intenso, alas muy claras con poco dibujo. [web:37]</li>
-                        <li><b>Od</b> ≈ Dilute: todo el cuerpo y alas muy aclarados, casi pastel muy suave. [web:37]</li>
+                        <li><b>On</b> = ondulación normal: alas con barrado negro bien definido, el aspecto clásico del periquito.</li>
+                        <li><b>Og</b> ≈ Greywing (alas grises): cuerpo más pastel, alas con barrado gris suave.</li>
+                        <li><b>Oc</b> ≈ Clearwing: cuerpo de color intenso, alas muy claras con poco dibujo.</li>
+                        <li><b>Od</b> ≈ Dilute: cuerpo y alas muy aclarados, casi pastel muy suave.</li>
                     </ul>
-                    <p>En este modelo, el orden de dominancia es: On > Og/Oc (codominantes entre sí) > Od.</p>
+                    <p>En este modelo, el orden de dominancia es: On &gt; Og/Oc (codominantes entre sí) &gt; Od.</p>
                     <div class="trait-card">
-                        <p><b>Ejemplo:</b> Un OnOd se ve casi normal, con ligero aclaramiento. Un OgOd se parece a un greywing (alas grisáceas y cuerpo pastel). Un OcOc se parece a un clearwing muy claro.</p>
+                        <p><b>Ejemplo:</b> Un periquito OnOd se ve casi normal, pero con un ligero aclaramiento en las alas. Un OgOd se parece a un greywing (alas grisáceas y cuerpo pastel). Un OcOc se parece a un clearwing muy claro, casi sin dibujo en las alas.</p>
                     </div>
+                    <p><i>La ondulación y el tipo de alas añaden aún más variedad a los periquitos. ¡Observa bien las alas de tus aves!</i></p>
                 </div>
                 <div class="puzzle-section">
                     <b>Pregunta:</b> ¿Cuál es la ondulación más recesiva en este modelo?</br>
@@ -452,16 +506,16 @@
             content: `
                 <br>
                 <div style='text-align:left;max-width:560px;margin:0 auto;'>
-                    <p>En periquitos hay muchas <b>variedades</b> que los aficionados reconocen: Spangle, Pío, Ino, Opalino, Canela, etc. [web:9][web:37]</p>
-                    <p>Las podemos agrupar así:</p>
+                    <p>Existen muchas <b>variedades</b> de periquitos, cada una con su propia forma de herencia. Entenderlas te ayudará a planear mejor tus cruces:</p>
                     <ul>
-                        <li><b>Dominantes:</b> Spangle, Pío dominante (Pío australiano, clearflight pied).</li>
-                        <li><b>Recesivas:</b> Azul, Pío recesivo, algunas variedades diluidas.</li>
-                        <li><b>Ligadas al sexo:</b> Ino (albino/lutino), Opalino, Canela, Lacewing.</li>
+                        <li><b>Dominantes:</b> Se manifiestan con solo una copia del alelo. Ejemplo: Spangle, Pío dominante (clearflight pied).</li>
+                        <li><b>Recesivas:</b> Solo se manifiestan si el periquito tiene dos copias del alelo. Ejemplo: azul, pío recesivo, algunas diluciones.</li>
+                        <li><b>Ligadas al sexo:</b> El gen está en el cromosoma sexual. Ejemplo: Ino (albino/lutino), Opalino, Canela, Lacewing. Las hembras expresan la mutación si la tienen, los machos pueden ser portadores sin mostrarla.</li>
                     </ul>
                     <div class="trait-card">
-                        <p><b>Ejemplo:</b> Un macho portador de Ino puede tener hijas Ino si transmite el alelo ligado al sexo correspondiente. En cambio, un rasgo dominante como Spangle se ve con solo una copia del alelo.</p>
+                        <p><b>Ejemplo:</b> Un macho portador de Ino puede tener hijas Ino si transmite el alelo ligado al sexo. Un rasgo dominante como Spangle se ve con solo una copia del alelo, así que es más fácil de identificar en la descendencia.</p>
                     </div>
+                    <p><i>Algunas mutaciones pueden combinarse, creando periquitos únicos. ¡Explora y experimenta con los cruces!</i></p>
                 </div>
                 <div class="puzzle-section">
                     <b>Pregunta:</b> ¿Qué tipo de carácter se considera cuando la mutación está en el cromosoma sexual y las hembras la expresan si la tienen?</br>
@@ -483,13 +537,17 @@
             content: `
                 <br>
                 <div style='text-align:left;max-width:560px;margin:0 auto;'>
-                    <p>Ahora combinamos sexo, color, factores y tipo de alas en un solo ejercicio. No hace falta calcular todo de memoria, piensa en bloques: sexo, línea de color, factores y ondulación.</p>
+                    <p>¡Hora de poner en práctica todo lo aprendido! Ahora combinamos sexo, color, factores y tipo de alas en un solo ejercicio. No hace falta calcular todo de memoria: piensa en bloques (sexo, color, factores, ondulación) y analiza cada uno por separado.</p>
                     <p><b>Ejercicio:</b> Considera el siguiente cruce (en notación de juego simplificada):</p>
                     <ul>
-                        <li>Macho: XX Vv Gg Dd OnOd</li>
-                        <li>Hembra: XY Vv dd OgOc</li>
+                        <li><b>Macho:</b> XX Vv Gg Dd OnOd</li>
+                        <li><b>Hembra:</b> XY Vv dd OgOc</li>
                     </ul>
-                    <p>Analiza por separado: sexo, verde/azul (V/v), gris (G/g), oscuro (D/d) y ondulación (On/Og/Oc/Od).</p>
+                    <p>Analiza por separado: sexo (XX/XY), color base (V/v), factor gris (G/g), factor oscuro (D/d) y ondulación (On/Og/Oc/Od). Piensa en todas las combinaciones posibles y qué pollos pueden nacer.</p>
+                    <div class="trait-card">
+                        <p><b>Ejemplo de análisis:</b> Ambos padres son Vv, así que pueden tener pollos verdes (V-) y azules (vv). El macho es Dd y la hembra dd, así que pueden salir pollos con y sin factor oscuro. La ondulación puede combinarse de varias formas, dando alas normales, grises, claras o diluidas.</p>
+                    </div>
+                    <p><i>¡Este tipo de ejercicios te prepara para planear tus propios cruces y entender la genética de tus aves!</i></p>
                 </div>
                 <div class="puzzle-section">
                     <b>Pregunta:</b> ¿Qué combinación de sexo esperas en la descendencia?</br>
@@ -506,7 +564,7 @@
                 </div>
                 <div class="trait-card">
                     <span class="emoji">🏅</span>
-                    <p><b>Reto libre:</b> Intenta escribir todos los fenotipos posibles para este cruce: machos y hembras, verdes y azules, con y sin gris, con distintas ondulaciones. Es un buen entrenamiento para simuladores de cría.</p>
+                    <p><b>Reto libre:</b> Intenta escribir todos los fenotipos posibles para este cruce: machos y hembras, verdes y azules, con y sin gris, con distintas ondulaciones. Es un excelente entrenamiento para convertirte en un criador experto.</p>
                 </div>
             `
         }
@@ -517,6 +575,26 @@
 
     // Feedback con explicación
     const feedbackExplanations = {
+                '2a': {
+                    correct: '¡Correcto! Los genes se encuentran en los cromosomas, dentro del núcleo celular.',
+                    wrong: 'La respuesta correcta es: en los cromosomas.'
+                },
+                '2b': {
+                    correct: '¡Correcto! Un alelo es una versión de un gen.',
+                    wrong: 'La respuesta correcta es: una versión de un gen.'
+                },
+                '3b': {
+                    correct: '¡Correcto! Homocigótico significa tener dos alelos iguales para un carácter.',
+                    wrong: 'La respuesta correcta es: tener dos alelos iguales para un carácter.'
+                },
+                '11a': {
+                    correct: '¡Correcto! Las hembras solo tienen un cromosoma X, así que cualquier alelo ligado al sexo se expresa.',
+                    wrong: 'La respuesta correcta es: porque solo tienen un cromosoma X.'
+                },
+                '12a': {
+                    correct: '¡Correcto! Al cruzar dos Spangle heterocigotos, puedes obtener pollos normales, Spangle heterocigotos y Spangle homocigotos.',
+                    wrong: 'La respuesta correcta es: pollos normales, Spangle heterocigotos y Spangle homocigotos.'
+                },
         '1a': {
             correct: '¡Correcto! Un gen es el fragmento de ADN que contiene la información para un carácter.',
             wrong: 'La respuesta correcta es "Gen": es el fragmento de ADN que contiene la información para un carácter.'
