@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Documentos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 { margin-bottom: 32px; font-weight: 600; color: #0f172a; }
+
+        /* Grid Layout */
+        #item-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        /* Item Cards */
+        .item-row {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .item-row:hover { transform: translateY(-4px); }
+
+        .item-row span {
+            flex-grow: 1;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .item-row img {
+            width: 80px;
+            height: 60px;
+            object-fit: contain;
+            background: #f1f5f9;
+            border-radius: 6px;
+            margin: 0 16px;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover { background: var(--primary-hover); }
+
+        /* Modal Styling */
+        #modalForm {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 32px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 16px; right: 16px;
+            cursor: pointer;
+            font-size: 24px;
+            color: #94a3b8;
+        }
+
+        form div { margin-bottom: 16px; }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #475569;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            outline: 2px solid var(--primary);
+            border-color: transparent;
+        }
+
+        .submit-btn { width: 100%; margin-top: 10px; padding: 12px; }
+    </style>
+</head>
+<body>
+
+    <h2>Panel de Generación</h2>
+
+    <div id="item-list">
+        <div class="item-row">
+            <span>Diploma</span>
+            <img src="generador/item1.png" alt="Diploma">
+            <button onclick="openForm('Diploma')">CONFIGURAR</button>
+        </div>
+        <div class="item-row">
+            <span>Certificate</span>
+            <img src="generador/item2.png" alt="Certificate">
+            <button onclick="openForm('Certificate')">CONFIGURAR</button>
+        </div>
+        <div class="item-row">
+            <span>Club ID Card</span>
+            <img src="generador/item3.png" alt="ID Card">
+            <button onclick="openForm('Club ID Card')">CONFIGURAR</button>
+        </div>
+    </div>
+
+    <div id="modalForm">
+        <div class="modal-content">
+            <span id="closeModal" class="close-btn">&times;</span>
+            <h3 id="formTitle" style="margin-top: 0;"></h3>
+            <form id="detailsForm">
+                <div id="dynamic-fields">
+                    </div>
+                <input type="hidden" name="tipo" id="tipoDoc">
+                <button type="submit" class="submit-btn">Generar PDF</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+    /** * CONFIGURATION OBJECT
+     * x and y are relative (0 to 1). 0.5 = center/middle.
+     * align: 'left', 'center', or 'right'
+     */
+    const ITEM_CONFIGS = {
+        'Diploma': {
+            img: 'generador/item1.png',
+            fields: [
+                { id: 'nombre', label: 'Nombre Completo', type: 'text', size: 28, x: 0.5, y: 0.45, align: 'center' },
+                { id: 'club', label: 'Institución/Club', type: 'text', size: 18, x: 0.5, y: 0.55, align: 'center' },
+                { id: 'detalle', label: 'Mérito', type: 'text', size: 18, x: 0.5, y: 0.65, align: 'center' },
+                { id: 'fecha', label: 'Fecha Emisión', type: 'date', size: 18, x: 0.8, y: 0.9, align: 'center' }
+            ]
+        },
+        'Certificate': {
+            img: 'generador/item2.png',
+            fields: [
+                { id: 'nombre', label: 'Nombre del Alumno', type: 'text', size: 26, x: 0.5, y: 0.4, align: 'center' },
+                { id: 'detalle', label: 'Curso/Taller', type: 'text', size: 16, x: 0.5, y: 0.6, align: 'center' },
+                { id: 'fecha', label: 'Fecha', type: 'date', size: 16, x: 0.8, y: 0.85, align: 'center' }
+            ]
+        },
+        'Club ID Card': {
+            img: 'generador/item3.png',
+            fields: [
+                { id: 'nombre', label: 'Socio', type: 'text', size: 20, x: 0.3, y: 0.4, align: 'left' },
+                { id: 'club', label: 'ID Número', type: 'text', size: 20, x: 0.3, y: 0.5, align: 'left' },
+                { id: 'fecha', label: 'Vence', type: 'date', size: 15, x: 0.3, y: 0.7, align: 'left' }
+            ]
+        }
+    };
+
+    const modal = document.getElementById('modalForm');
+    const dynamicFieldsContainer = document.getElementById('dynamic-fields');
+
+    function openForm(tipo) {
+        const config = ITEM_CONFIGS[tipo];
+        if (!config) return;
+
+        document.getElementById('formTitle').textContent = tipo;
+        document.getElementById('tipoDoc').value = tipo;
+        
+        // Clear and build dynamic form
+        dynamicFieldsContainer.innerHTML = '';
+        config.fields.forEach(field => {
+            const wrapper = document.createElement('div');
+            wrapper.innerHTML = `
+                <label>${field.label}</label>
+                <input type="${field.type}" name="${field.id}" required>
+            `;
+            dynamicFieldsContainer.appendChild(wrapper);
+        });
+
+        modal.style.display = 'flex';
+    }
+
+    // Modal Closing Logic
+    document.getElementById('closeModal').onclick = () => modal.style.display = 'none';
+    window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+
+    // PDF Generation Logic
+    document.getElementById('detailsForm').onsubmit = function(e) {
+        e.preventDefault();
+        const formData = Object.fromEntries(new FormData(this).entries());
+        const config = ITEM_CONFIGS[formData.tipo];
+
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.src = config.img;
+
+        img.onload = function() {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({
+                orientation: 'landscape',
+                unit: 'px',
+                format: [img.width, img.height]
+            });
+
+            pdf.addImage(img, 'JPEG', 0, 0, img.width, img.height);
+
+            // Draw each configured field
+            config.fields.forEach(field => {
+                pdf.setFontSize(field.size);
+                const val = formData[field.id] || '';
+                const xPos = img.width * field.x;
+                const yPos = img.height * field.y;
+                pdf.text(val, xPos, yPos, { align: field.align });
+            });
+
+            pdf.save(`${formData.tipo}_${formData.nombre || 'documento'}.pdf`);
+            modal.style.display = 'none';
+        };
+
+        img.onerror = () => alert('Error: No se pudo cargar la imagen base.');
+    };
+    </script>
+</body>
+</html>

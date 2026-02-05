@@ -113,7 +113,7 @@
     <br>
 
     <div class="footer">
-        <p>🦜 Comunidad Ornitológica de PeriquitosMex A.C. <span id="year"></span> 🦜</p>
+        <p>🦜 Comunidad Ornitológica de PeriquitosMex A.C. <span id="year"></span> <a href="/generador.html" id="secret-bird" title="Acceso especial">🦜</a></p>
     </div>
 
     <script src="script.js"></script>
@@ -123,6 +123,18 @@
         var yearSpan = document.getElementById("year");
         if (yearSpan) {
             yearSpan.textContent = new Date().getFullYear();
+        }
+        var secretBird = document.getElementById("secret-bird");
+        if (secretBird) {
+            secretBird.addEventListener("click", function (e) {
+                e.preventDefault();
+                var pass = prompt("Introduce el código de acceso:");
+                if (pass === "918221") {
+                    window.location.href = "acceso.html";
+                } else if (pass !== null) {
+                    alert("Código incorrecto.");
+                }
+            });
         }
     });
 </script>
