@@ -159,7 +159,7 @@
             unit: 'mm',
             orientation: 'l',
             format: [297, 215], 
-            renderAs: 'pdf', // <--- Output type
+            renderAs: 'png',
             fields: [
                 { id: 'nombre', label: 'Nombre Completo', type: 'text', size: 28, x: 0.5, y: 0.57, align: 'center' },
                 { id: 'socio', label: '# Socio', type: 'text', size: 22, x: 0.55, y: 0.64, align: 'center' }
@@ -167,14 +167,14 @@
         },
         'Credencial': {
             label: 'Credencial PMX 2026',
-            img: 'generador/item3.png',
+            img: 'generador/item2.png',
             unit: 'mm',
             orientation: 'p',
             format: [55, 85], 
-            renderAs: 'jpg', // <--- Output type
+            renderAs: 'jpg',
             fields: [
-                { id: 'nombre', label: 'Nombre', type: 'text', size: 10, x: 0.5, y: 0.70, align: 'center' },
-                { id: 'socio', label: 'ID Socio', type: 'text', size: 8, x: 0.5, y: 0.80, align: 'center' }
+                { id: 'nombre', label: 'Nombre', type: 'text', size: 35, x: 0.26, y: 0.51, align: 'center' },
+                { id: 'socio', label: 'ID Socio', type: 'text', size: 40, x: 0.29, y: 0.59, align: 'center' }
             ]
         }
     };
