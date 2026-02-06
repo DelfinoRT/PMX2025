@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Documentos</title>
+    <title>Generador de Documentos Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -27,7 +27,6 @@
 
         h2 { margin-bottom: 32px; font-weight: 600; color: #0f172a; }
 
-        /* Grid Layout */
         #item-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -36,7 +35,6 @@
             max-width: 1000px;
         }
 
-        /* Item Cards */
         .item-row {
             background: var(--card-bg);
             padding: 20px;
@@ -127,11 +125,6 @@
             font-size: 1rem;
         }
 
-        input:focus {
-            outline: 2px solid var(--primary);
-            border-color: transparent;
-        }
-
         .submit-btn { width: 100%; margin-top: 10px; padding: 12px; }
     </style>
 </head>
@@ -139,82 +132,81 @@
 
     <h2>Panel de Generación</h2>
 
-    <div id="item-list">
-        <div class="item-row">
-            <span>Diploma</span>
-            <img src="generador/item1.png" alt="Diploma">
-            <button onclick="openForm('Diploma')">CONFIGURAR</button>
-        </div>
-        <div class="item-row">
-            <span>Certificate</span>
-            <img src="generador/item2.png" alt="Certificate">
-            <button onclick="openForm('Certificate')">CONFIGURAR</button>
-        </div>
-        <div class="item-row">
-            <span>Club ID Card</span>
-            <img src="generador/item3.png" alt="ID Card">
-            <button onclick="openForm('Club ID Card')">CONFIGURAR</button>
-        </div>
-    </div>
+    <div id="item-list"></div>
 
     <div id="modalForm">
         <div class="modal-content">
             <span id="closeModal" class="close-btn">&times;</span>
             <h3 id="formTitle" style="margin-top: 0;"></h3>
             <form id="detailsForm">
-                <div id="dynamic-fields">
-                    </div>
+                <div id="dynamic-fields"></div>
                 <input type="hidden" name="tipo" id="tipoDoc">
-                <button type="submit" class="submit-btn">Generar PDF</button>
+                <button type="submit" class="submit-btn" id="submitLabel">Generar Archivo</button>
             </form>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     <script>
-    /** * CONFIGURATION OBJECT
-     * x and y are relative (0 to 1). 0.5 = center/middle.
-     * align: 'left', 'center', or 'right'
+    /** * CENTRAL CONFIGURATION
+     * To change format: update 'renderAs' to 'pdf' or 'jpg'
      */
     const ITEM_CONFIGS = {
-        'Diploma': {
+        'Constancia': {
+            label: 'Constancia PMX 2026',
             img: 'generador/item1.png',
+            unit: 'mm',
+            orientation: 'l',
+            format: [297, 215], 
+            renderAs: 'pdf', // <--- Output type
             fields: [
-                { id: 'nombre', label: 'Nombre Completo', type: 'text', size: 28, x: 0.5, y: 0.45, align: 'center' },
-                { id: 'club', label: 'Institución/Club', type: 'text', size: 18, x: 0.5, y: 0.55, align: 'center' },
-                { id: 'detalle', label: 'Mérito', type: 'text', size: 18, x: 0.5, y: 0.65, align: 'center' },
-                { id: 'fecha', label: 'Fecha Emisión', type: 'date', size: 18, x: 0.8, y: 0.9, align: 'center' }
+                { id: 'nombre', label: 'Nombre Completo', type: 'text', size: 28, x: 0.5, y: 0.57, align: 'center' },
+                { id: 'socio', label: '# Socio', type: 'text', size: 22, x: 0.55, y: 0.64, align: 'center' }
             ]
         },
-        'Certificate': {
-            img: 'generador/item2.png',
-            fields: [
-                { id: 'nombre', label: 'Nombre del Alumno', type: 'text', size: 26, x: 0.5, y: 0.4, align: 'center' },
-                { id: 'detalle', label: 'Curso/Taller', type: 'text', size: 16, x: 0.5, y: 0.6, align: 'center' },
-                { id: 'fecha', label: 'Fecha', type: 'date', size: 16, x: 0.8, y: 0.85, align: 'center' }
-            ]
-        },
-        'Club ID Card': {
+        'Credencial': {
+            label: 'Credencial PMX 2026',
             img: 'generador/item3.png',
+            unit: 'mm',
+            orientation: 'p',
+            format: [55, 85], 
+            renderAs: 'jpg', // <--- Output type
             fields: [
-                { id: 'nombre', label: 'Socio', type: 'text', size: 20, x: 0.3, y: 0.4, align: 'left' },
-                { id: 'club', label: 'ID Número', type: 'text', size: 20, x: 0.3, y: 0.5, align: 'left' },
-                { id: 'fecha', label: 'Vence', type: 'date', size: 15, x: 0.3, y: 0.7, align: 'left' }
+                { id: 'nombre', label: 'Nombre', type: 'text', size: 10, x: 0.5, y: 0.70, align: 'center' },
+                { id: 'socio', label: 'ID Socio', type: 'text', size: 8, x: 0.5, y: 0.80, align: 'center' }
             ]
         }
     };
 
+    const itemList = document.getElementById('item-list');
     const modal = document.getElementById('modalForm');
     const dynamicFieldsContainer = document.getElementById('dynamic-fields');
 
-    function openForm(tipo) {
-        const config = ITEM_CONFIGS[tipo];
+    // 1. Initialize UI
+    function initUI() {
+        itemList.innerHTML = '';
+        for (const [key, config] of Object.entries(ITEM_CONFIGS)) {
+            const div = document.createElement('div');
+            div.className = 'item-row';
+            div.innerHTML = `
+                <span>${config.label}</span>
+                <img src="${config.img}" alt="${key}">
+                <button onclick="openForm('${key}')">CONFIGURAR</button>
+            `;
+            itemList.appendChild(div);
+        }
+    }
+
+    // 2. Open Modal & Build Form
+    function openForm(key) {
+        const config = ITEM_CONFIGS[key];
         if (!config) return;
 
-        document.getElementById('formTitle').textContent = tipo;
-        document.getElementById('tipoDoc').value = tipo;
+        document.getElementById('formTitle').textContent = config.label;
+        document.getElementById('tipoDoc').value = key;
+        document.getElementById('submitLabel').textContent = `Generar ${config.renderAs.toUpperCase()}`;
         
-        // Clear and build dynamic form
         dynamicFieldsContainer.innerHTML = '';
         config.fields.forEach(field => {
             const wrapper = document.createElement('div');
@@ -228,11 +220,11 @@
         modal.style.display = 'flex';
     }
 
-    // Modal Closing Logic
+    // Modal Closing
     document.getElementById('closeModal').onclick = () => modal.style.display = 'none';
     window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
 
-    // PDF Generation Logic
+    // 3. Main Generation Logic
     document.getElementById('detailsForm').onsubmit = function(e) {
         e.preventDefault();
         const formData = Object.fromEntries(new FormData(this).entries());
@@ -243,30 +235,81 @@
         img.src = config.img;
 
         img.onload = function() {
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF({
-                orientation: 'landscape',
-                unit: 'px',
-                format: [img.width, img.height]
-            });
-
-            pdf.addImage(img, 'JPEG', 0, 0, img.width, img.height);
-
-            // Draw each configured field
-            config.fields.forEach(field => {
-                pdf.setFontSize(field.size);
-                const val = formData[field.id] || '';
-                const xPos = img.width * field.x;
-                const yPos = img.height * field.y;
-                pdf.text(val, xPos, yPos, { align: field.align });
-            });
-
-            pdf.save(`${formData.tipo}_${formData.nombre || 'documento'}.pdf`);
+            if (config.renderAs === 'jpg') {
+                generateJPG(img, config, formData);
+            } else {
+                generatePDF(img, config, formData);
+            }
             modal.style.display = 'none';
         };
 
-        img.onerror = () => alert('Error: No se pudo cargar la imagen base.');
+        img.onerror = () => alert('Error: No se pudo cargar la imagen de fondo.');
     };
+
+    /**
+     * PDF Generation Function
+     */
+    function generatePDF(img, config, formData) {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({
+            orientation: config.orientation,
+            unit: config.unit,
+            format: config.format
+        });
+
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+
+        pdf.addImage(img, 'PNG', 0, 0, pageWidth, pageHeight);
+
+        config.fields.forEach(field => {
+            pdf.setFontSize(field.size);
+            const val = formData[field.id] || '';
+            const xPos = pageWidth * field.x;
+            const yPos = pageHeight * field.y;
+            pdf.text(val, xPos, yPos, { align: field.align });
+        });
+
+        pdf.save(`${formData.tipo}_${formData.nombre || 'doc'}.pdf`);
+    }
+
+    /**
+     * JPG Generation Function
+     */
+    function generateJPG(img, config, formData) {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Quality multiplier (scales original image size for clarity)
+        const scale = 3; 
+        canvas.width = img.width * scale;
+        canvas.height = img.height * scale;
+
+        // Draw Background
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        // Draw Text
+        config.fields.forEach(field => {
+            // Conversion factor: approximate PDF points to Canvas pixels
+            const fontSize = field.size * scale * 1.35; 
+            ctx.font = `600 ${fontSize}px Inter, sans-serif`;
+            ctx.fillStyle = "#1e293b"; 
+            ctx.textAlign = field.align === 'center' ? 'center' : (field.align || 'left');
+            
+            const xPos = canvas.width * field.x;
+            const yPos = canvas.height * field.y;
+            
+            ctx.fillText(formData[field.id] || '', xPos, yPos);
+        });
+
+        // Download trigger
+        const link = document.createElement('a');
+        link.download = `${formData.tipo}_${formData.nombre || 'doc'}.jpg`;
+        link.href = canvas.toDataURL('image/jpeg', 0.92);
+        link.click();
+    }
+
+    initUI();
     </script>
 </body>
 </html>
