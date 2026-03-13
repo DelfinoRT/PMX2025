@@ -5,138 +5,165 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🦜 PeriquitosMex - Biblioteca</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;500;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="navbar">
-        <a href="index.html">
-            <img src="recursos/PMX-Logo.png" alt="Logo" class="logo">
-        </a>
-        <div class="logo-text" id="typing-text"></div>
-        <div class="menu">
-            <button data-page="/index.html">🐦 Sobre nosotros</button>
-            <button data-page="/familiapmx.html">🪶 Familia PMX</button>
-            <button data-page="/biblioteca.html">📖 Biblioteca</button>
-            <button data-page="/contacto.html">💌 Contacto</button>
-            <button data-page="/mutacionesjuego.html">🧬 Juego de mutaciones</button>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <a href="index.html">
+                <img src="recursos/PMX-Logo.png" alt="Logo PeriquitosMex" class="logo">
+            </a>
+            <span class="navbar-brand">PeriquitosMex</span>
         </div>
-    </div>
+        
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-toggle" aria-label="Menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <div class="navbar-menu">
+            <button data-page="index.html"><span class="icon icon-bird"></span> Sobre Nosotros</button>
+            <button data-page="familiapmx.html"><span class="icon icon-group"></span> Familia PMX</button>
+            <button data-page="biblioteca.html" class="active"><span class="icon icon-book"></span> Biblioteca</button>
+            <button data-page="contacto.html"><span class="icon icon-mail"></span> Contacto</button>
+            <button data-page="mutacionesjuego.html"><span class="icon icon-dna"></span> Juego de Mutaciones</button>
+            <button data-page="generador.html"><span class="icon icon-doc"></span> Generador</button>
+        </div>
+    </nav>
 
+    <!-- Main Content -->
     <div class="main-body">
         <div class="content">
             <div class="section">
-                <h3>Biblioteca de Archivos</h3>
-                <p>Aquí puedes encontrar una lista de archivos disponibles para descargar:</p>
+                <h3><span class="icon icon-book"></span> Biblioteca de Archivos</h3>
+                <p>Aquí puedes encontrar una colección de recursos sobre periquitos australianos. Haz clic en descargar para guardar los archivos en tu dispositivo:</p>
+                
                 <ul class="download-list">
                     <li>
-                        Tabla de referencia - Clases en Periquitos Australianos para eventos de competencia | 
-                        <a href="biblioteca/Tabla de referencia - Clases en Periquitos Australianos para eventos de competencia.pdf" download class="download-button">Descargar</a>
+                        <span>📄 Tabla de referencia - Clases en Periquitos Australianos</span>
+                        <a href="biblioteca/Tabla de referencia - Clases en Periquitos Australianos para eventos de competencia.pdf" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        ABE-Exhibición de Agapornis | 
-                        <a href="biblioteca/ABE-Exhibición de Agapornis.pdf" download class="download-button">Descargar</a>
+                        <span>📄 ABE-Exhibición de Agapornis</span>
+                        <a href="biblioteca/ABE-Exhibición de Agapornis.pdf" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        Breve charla sobre la cría de Inos | 
-                        <a href="biblioteca/Breve charla sobre la cría de Inos.pdf" download class="download-button">Descargar</a>
+                        <span>📄 Breve charla sobre la cría de Inos</span>
+                        <a href="biblioteca/Breve charla sobre la cría de Inos.pdf" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        Breve tratado sobre la alimentación en periquitos | 
-                        <a href="biblioteca/Breve tratado sobre la alimentación en periquitos.pdf" download class="download-button">Descargar</a>
+                        <span>📄 Breve tratado sobre la alimentación en periquitos</span>
+                        <a href="biblioteca/Breve tratado sobre la alimentación en periquitos.pdf" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        Ciclos de fertilidad en los periquitos - A. Terry Tuxford | 
-                        <a href="biblioteca/Ciclos de fertilidad en los periquitos - A. Terry Tuxford.pdf" download class="download-button">Descargar</a>
+                        <span>📄 Ciclos de fertilidad en los periquitos - A. Terry Tuxford</span>
+                        <a href="biblioteca/Ciclos de fertilidad en los periquitos - A. Terry Tuxford.pdf" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        Colores estandard - Salvador Riambau | 
-                        <a href="biblioteca/Colores estandard - Salvador Riambau.pdf" download class="download-button">Descargar</a>
+                        <span>📄 Colores estandard - Salvador Riambau</span>
+                        <a href="biblioteca/Colores estandard - Salvador Riambau.pdf" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        Como reducir la mortalidad en las crías |
-                        <a href="biblioteca/Como reducir la mortalidad en las crías.pdf" download class="download-button">Descargar</a>
+                        <span>📄 Como reducir la mortalidad en las crías</span>
+                        <a href="biblioteca/Como reducir la mortalidad en las crías.pdf" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        Cuestiones previas a la cría y reproducción de los periquitos |
-                        <a href="biblioteca/Cuestiones previas a la cría y reproducción de los periquitos.pdf" download class="download-button">Descargar</a>
+                        <span>📄 Cuestiones previas a la cría y reproducción de los periquitos</span>
+                        <a href="biblioteca/Cuestiones previas a la cría y reproducción de los periquitos.pdf" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        Determinación del color de los periquitos en etapas tempranas |
-                        <a href="biblioteca/Determinación del color de los periquitos en etapas tempranas.pdf" download class="download-button">Descargar</a>
+                        <span>📄 Determinación del color de los periquitos en etapas tempranas</span>
+                        <a href="biblioteca/Determinación del color de los periquitos en etapas tempranas.pdf" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        El avance de la nutricion en nuestras aves - Fernando Osoro |
-                        <a href="biblioteca/El avance de la nutricion en nuestras aves - Fernando Osoro.pdf" download class="download-button">Descargar</a>
+                        <span>📄 El avance de la nutricion en nuestras aves - Fernando Osoro</span>
+                        <a href="biblioteca/El avance de la nutricion en nuestras aves - Fernando Osoro.pdf" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        El juzgamiento del perico Australiano |
-                        <a href="biblioteca/El juzgamiento del perico Australiano.pdf" download class="download-button">Descargar</a>
+                        <span>📄 El juzgamiento del perico Australiano</span>
+                        <a href="biblioteca/El juzgamiento del perico Australiano.pdf" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        Enfermedades derivadas de carencias alimenticias |
-                        <a href="biblioteca/Enfermedades derivadas de carencias alimenticias.pdf" download class="download-button">Descargar</a>
+                        <span>📄 Enfermedades derivadas de carencias alimenticias</span>
+                        <a href="biblioteca/Enfermedades derivadas de carencias alimenticias.pdf" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        ESTÁNDAR OFICIAL COE & COM |
-                        <a href="biblioteca/ESTÁNDAR OFICIAL COE & COM.pdf" download class="download-button">Descargar</a>
+                        <span>📄 ESTÁNDAR OFICIAL COE & COM</span>
+                        <a href="biblioteca/ESTÁNDAR OFICIAL COE & COM.pdf" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        Genética y cría de color en periquitos - Ghalib Al-Nasser |
-                        <a href="biblioteca/Genética y cría de color en periquitos - Ghalib Al-Nasser.pdf" download class="download-button">Descargar</a>
+                        <span>📄 Genética y cría de color en periquitos - Ghalib Al-Nasser</span>
+                        <a href="biblioteca/Genética y cría de color en periquitos - Ghalib Al-Nasser.pdf" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        GUIA PARA LA CRIA A MANO DE NINFAS |
-                        <a href="biblioteca/GUIA PARA LA CRIA A MANO DE NINFAS.pdf · versión 1.pdf" download class="download-button">Descargar</a>
+                        <span>📄 GUIA PARA LA CRIA A MANO DE NINFAS</span>
+                        <a href="biblioteca/GUIA PARA LA CRIA A MANO DE NINFAS.pdf · versión 1.pdf" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        Ideal Egipcio del periquito Hagoromo |
-                        <a href="biblioteca/Ideal Egipcio del periquito Hagoromo.pdf" download class="download-button">Descargar</a>
+                        <span>📄 Ideal Egipcio del periquito Hagoromo</span>
+                        <a href="biblioteca/Ideal Egipcio del periquito Hagoromo.pdf" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        Introduccion a la alimentacion en periquitos - Delfino Rosales |
-                        <a href="biblioteca/Introduccion a la alimentacion en periquitos - Delfino Rosales.png" download class="download-button">Descargar</a>
+                        <span>🖼 Introduccion a la alimentacion en periquitos - Delfino Rosales</span>
+                        <a href="biblioteca/Introduccion a la alimentacion en periquitos - Delfino Rosales.png" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        Protocolo para la visita de aviarios |
-                        <a href="biblioteca/Protocolo para la visita de aviarios.png" download class="download-button">Descargar</a>
+                        <span>🖼 Protocolo para la visita de aviarios</span>
+                        <a href="biblioteca/Protocolo para la visita de aviarios.png" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        Como reducir la mortalidad en las crías |
-                        <a href="biblioteca/Como reducir la mortalidad en las crías.pdf" download class="download-button">Descargar</a>
+                        <span>🖼 Guía de Periquitos Rostrales</span>
+                        <a href="biblioteca/RostralesPeriquitos.png" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        Guía de Periquitos Rostrales |
-                        <a href="biblioteca/RostralesPeriquitos.png" download class="download-button">Descargar</a>
+                        <span>🖼 Sistema Digestivo de los Periquitos</span>
+                        <a href="biblioteca/Sistema Digestivo de los Periquitos.png" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        Sistema Digestivo de los Periquitos |
-                        <a href="biblioteca/Sistema Digestivo de los Periquitos.png" download class="download-button">Descargar</a>
+                        <span>🖼 Tabla Texas Clearbody Impuros</span>
+                        <a href="biblioteca/Tabla Texas Clearbody Impuros.png" download class="download-button">⬇ Descargar</a>
                     </li>
                     <li>
-                        Tabla Texas Clearbody Impuros |
-                        <a href="biblioteca/Tabla Texas Clearbody Impuros.png" download class="download-button">Descargar</a>
-                    </li>
-                    <li>
-                        Tabla Texas Clearbody Puros |
-                        <a href="biblioteca/Tabla Texas Clearbody Puros.png" download class="download-button">Descargar</a>
+                        <span>🖼 Tabla Texas Clearbody Puros</span>
+                        <a href="biblioteca/Tabla Texas Clearbody Puros.png" download class="download-button">⬇ Descargar</a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 
-    <div class="footer">
-        <p>🦜 Comunidad Ornitológica de PeriquitosMex A.C. <span id="year"></span> 🦜</p>
-    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Comunidad Ornitol&oacute;gica de PeriquitosMex A.C.</p>
+    </footer>
 
     <script src="script.js"></script>
-<script src="script.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var yearSpan = document.getElementById("year");
-        if (yearSpan) {
-            yearSpan.textContent = new Date().getFullYear();
-        }
-    });
-</script>
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const menu = document.querySelector('.navbar-menu');
+            
+            if (menuToggle && menu) {
+                menuToggle.addEventListener('click', function() {
+                    menuToggle.classList.toggle('active');
+                    menu.classList.toggle('open');
+                });
+            }
+
+            // Navbar scroll effect
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

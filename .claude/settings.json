@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -A 3 \"class=\"\"footer\"\"\" c:/Users/delfi/Documents/PMX2025/*.html)"
+    ]
+  }
+}
