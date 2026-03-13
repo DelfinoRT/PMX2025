@@ -327,6 +327,79 @@ a:hover {
     animation: wiggle 0.4s ease;
 }
 
+/* ===== LOGO BIRD BURST EFFECT (sprite sheet) ===== */
+
+/* Bird container — handles flight trajectory */
+.bpc {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    will-change: transform;
+}
+
+/* Bird sprite — handles wing-flap */
+.bird-sprite {
+    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/174479/bird-cells-new.svg');
+    background-size: auto 100%;
+    width: 88px;
+    height: 125px;
+    will-change: background-position;
+    animation: bird-flap var(--flap-dur, 0.9s) steps(10) infinite;
+}
+
+/* Flip sprite for left-going birds */
+.bpc.fly-left .bird-sprite {
+    transform: scaleX(-1);
+}
+
+@keyframes bird-flap {
+    100% { background-position: -900px 0; }
+}
+
+/* Six burst directions — all originate at logo center */
+@keyframes burst-ul-far {
+    0%   { transform: translate(0,0) scale(0.12); opacity: 0; }
+    8%   { transform: translate(-8px,-6px) scale(0.22); opacity: 1; }
+    35%  { transform: translate(-52px,-50px) scale(0.30); }
+    70%  { transform: translate(-95px,-88px) scale(0.24); opacity: 0.6; }
+    100% { transform: translate(-135px,-110px) scale(0.10); opacity: 0; }
+}
+@keyframes burst-ul {
+    0%   { transform: translate(0,0) scale(0.12); opacity: 0; }
+    8%   { transform: translate(-4px,-10px) scale(0.22); opacity: 1; }
+    35%  { transform: translate(-28px,-63px) scale(0.30); }
+    70%  { transform: translate(-52px,-102px) scale(0.24); opacity: 0.6; }
+    100% { transform: translate(-70px,-128px) scale(0.10); opacity: 0; }
+}
+@keyframes burst-left {
+    0%   { transform: translate(0,0) scale(0.12); opacity: 0; }
+    8%   { transform: translate(-10px,-2px) scale(0.22); opacity: 1; }
+    35%  { transform: translate(-62px,-18px) scale(0.30); }
+    70%  { transform: translate(-115px,-28px) scale(0.24); opacity: 0.6; }
+    100% { transform: translate(-158px,-33px) scale(0.10); opacity: 0; }
+}
+@keyframes burst-ur-far {
+    0%   { transform: translate(0,0) scale(0.12); opacity: 0; }
+    8%   { transform: translate(8px,-6px) scale(0.22); opacity: 1; }
+    35%  { transform: translate(52px,-50px) scale(0.30); }
+    70%  { transform: translate(95px,-88px) scale(0.24); opacity: 0.6; }
+    100% { transform: translate(135px,-110px) scale(0.10); opacity: 0; }
+}
+@keyframes burst-ur {
+    0%   { transform: translate(0,0) scale(0.12); opacity: 0; }
+    8%   { transform: translate(4px,-10px) scale(0.22); opacity: 1; }
+    35%  { transform: translate(28px,-63px) scale(0.30); }
+    70%  { transform: translate(52px,-102px) scale(0.24); opacity: 0.6; }
+    100% { transform: translate(70px,-128px) scale(0.10); opacity: 0; }
+}
+@keyframes burst-right {
+    0%   { transform: translate(0,0) scale(0.12); opacity: 0; }
+    8%   { transform: translate(10px,-2px) scale(0.22); opacity: 1; }
+    35%  { transform: translate(62px,-18px) scale(0.30); }
+    70%  { transform: translate(115px,-28px) scale(0.24); opacity: 0.6; }
+    100% { transform: translate(158px,-33px) scale(0.10); opacity: 0; }
+}
+
 .navbar-brand {
     font-family: var(--font-display);
     font-size: 1.3rem;
