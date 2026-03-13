@@ -408,6 +408,53 @@ a:hover {
     color: var(--icing-cobalt);
 }
 
+/* Menu backdrop */
+.menu-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 99;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-slow);
+}
+
+.menu-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Close button inside mobile menu */
+.menu-close {
+    display: none;
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    background: var(--gradient-festive);
+    border: 3px solid var(--skull-white);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    color: var(--skull-white);
+    font-family: var(--font-accent);
+    font-size: 1.6rem;
+    line-height: 1;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(233, 30, 140, 0.45), 0 0 0 4px rgba(255, 215, 0, 0.25);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.menu-close:hover,
+.menu-close:focus-visible {
+    transform: scale(1.15) rotate(15deg);
+    box-shadow: 0 6px 20px rgba(233, 30, 140, 0.6), 0 0 0 5px rgba(255, 215, 0, 0.4);
+    outline: none;
+}
+
 /* Mobile Menu Toggle */
 .menu-toggle {
     display: none;
@@ -445,6 +492,10 @@ a:hover {
         display: flex;
     }
 
+    .menu-close {
+        display: flex;
+    }
+
     .navbar-menu {
         position: fixed;
         top: 0;
@@ -467,6 +518,7 @@ a:hover {
         gap: var(--spacing-md);
         box-shadow: var(--shadow-xl);
         transition: right var(--transition-slow);
+        z-index: 100;
     }
 
     .navbar-menu.open {
@@ -506,7 +558,7 @@ a:hover {
 
 @media (max-width: 768px) {
     .main-body {
-        margin-top: 80px;
+        margin-top: 120px;
         padding: var(--spacing-md);
     }
 }

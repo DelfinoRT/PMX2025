@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(grep -A 3 \"class=\"\"footer\"\"\" c:/Users/delfi/Documents/PMX2025/*.html)"
+      "Bash(grep -A 3 \"class=\"\"footer\"\"\" c:/Users/delfi/Documents/PMX2025/*.html)",
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Read(//c/Users/delfi/Documents/PMX2025/**)",
+      "Bash(done)"
     ]
   }
 }
