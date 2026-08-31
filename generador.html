@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🦜 PeriquitosMex - Generador de Documentos</title>
+    <title>PeriquitosMex - Generador de Documentos</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;500;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
 </head>
@@ -36,19 +36,19 @@
 
     <div class="generador-container">
         <h2><span class="icon icon-doc"></span> Panel de Generacion de Documentos</h2>
-        <div id="item-list"></div>
-    </div>
 
-    <div id="modalForm">
-        <div class="modal-content">
-            <span id="closeModal" class="close-btn">&times;</span>
-            <h3 id="formTitle"></h3>
-            <form id="detailsForm">
-                <div id="dynamic-fields"></div>
-                <input type="hidden" name="tipo" id="tipoDoc">
-                <button type="submit" class="submit-btn" id="submitLabel">Generar Archivo</button>
-            </form>
+        <div class="generador-inputs">
+            <div class="input-group">
+                <label for="global-nombre">Nombre Completo</label>
+                <input type="text" id="global-nombre" placeholder="Escribe tu nombre completo">
+            </div>
+            <div class="input-group">
+                <label for="global-socio">ID Socio</label>
+                <input type="text" id="global-socio" placeholder="Escribe tu numero de socio">
+            </div>
         </div>
+
+        <div id="item-list"></div>
     </div>
 
     <!-- Footer -->
@@ -90,72 +90,72 @@
     };
 
     const itemList = document.getElementById('item-list');
-    const modal = document.getElementById('modalForm');
-    const dynamicFieldsContainer = document.getElementById('dynamic-fields');
+const globalNombre = document.getElementById('global-nombre');
+const globalSocio = document.getElementById('global-socio');
+const generateButtons = [];
 
-    // 1. Initialize UI
-    function initUI() {
-        itemList.innerHTML = '';
-        for (const [key, config] of Object.entries(ITEM_CONFIGS)) {
-            const div = document.createElement('div');
-            div.className = 'item-row';
-            div.innerHTML = `
-                <span>${config.label}</span>
-                <img src="${config.img}" alt="${key}">
-                <button onclick="openForm('${key}')">CONFIGURAR</button>
-            `;
-            itemList.appendChild(div);
-        }
+// 1. Initialize UI
+function initUI() {
+    itemList.innerHTML = '';
+    generateButtons.length = 0;
+    for (const [key, config] of Object.entries(ITEM_CONFIGS)) {
+        const div = document.createElement('div');
+        div.className = 'item-row';
+        div.innerHTML = `
+            <span>${config.label}</span>
+            <img src="${config.img}" alt="${key}">
+            <button onclick="generateDocument('${key}')" disabled>Generar ${config.renderAs === 'jpg' ? 'JPG' : 'PDF'}</button>
+        `;
+        itemList.appendChild(div);
+        generateButtons.push(div.querySelector('button'));
+    }
+    updateButtons();
+}
+
+// 2. Enable/disable generate buttons based on top fields
+function updateButtons() {
+    const nombre = globalNombre.value.trim();
+    const socio = globalSocio.value.trim();
+    const hasData = nombre !== '' && socio !== '';
+    generateButtons.forEach(btn => btn.disabled = !hasData);
+}
+
+globalNombre.addEventListener('input', updateButtons);
+globalSocio.addEventListener('input', updateButtons);
+
+// 3. Generate document using top fields
+function generateDocument(key) {
+    const config = ITEM_CONFIGS[key];
+    if (!config) return;
+
+    const nombre = globalNombre.value.trim();
+    const socio = globalSocio.value.trim();
+
+    if (!nombre || !socio) {
+        alert('Por favor completa el Nombre Completo y el ID Socio.');
+        return;
     }
 
-    // 2. Open Modal & Build Form
-    function openForm(key) {
-        const config = ITEM_CONFIGS[key];
-        if (!config) return;
-
-        document.getElementById('formTitle').textContent = config.label;
-        document.getElementById('tipoDoc').value = key;
-        document.getElementById('submitLabel').textContent = `Generar ${config.renderAs.toUpperCase()}`;
-        
-        dynamicFieldsContainer.innerHTML = '';
-        config.fields.forEach(field => {
-            const wrapper = document.createElement('div');
-            wrapper.innerHTML = `
-                <label>${field.label}</label>
-                <input type="${field.type}" name="${field.id}" required>
-            `;
-            dynamicFieldsContainer.appendChild(wrapper);
-        });
-
-        modal.style.display = 'flex';
-    }
-
-    // Modal Closing
-    document.getElementById('closeModal').onclick = () => modal.style.display = 'none';
-    window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
-
-    // 3. Main Generation Logic
-    document.getElementById('detailsForm').onsubmit = function(e) {
-        e.preventDefault();
-        const formData = Object.fromEntries(new FormData(this).entries());
-        const config = ITEM_CONFIGS[formData.tipo];
-
-        const img = new Image();
-        img.crossOrigin = 'anonymous';
-        img.src = config.img;
-
-        img.onload = function() {
-            if (config.renderAs === 'jpg') {
-                generateJPG(img, config, formData);
-            } else {
-                generatePDF(img, config, formData);
-            }
-            modal.style.display = 'none';
-        };
-
-        img.onerror = () => alert('Error: No se pudo cargar la imagen de fondo.');
+    const formData = {
+        tipo: key,
+        nombre: nombre,
+        socio: socio
     };
 
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = config.img;
+
+    img.onload = function() {
+        if (config.renderAs === 'jpg') {
+            generateJPG(img, config, formData);
+        } else {
+            generatePDF(img, config, formData);
+        }
+    };
+
+    img.onerror = () => alert('Error: No se pudo cargar la imagen de fondo.');
+}
     /**
      * PDF Generation Function
      */
