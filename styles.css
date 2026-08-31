@@ -1867,6 +1867,24 @@ textarea.form-control {
 }
 
 /* ========================================
+   FACEBOOK PAGE SECTION
+   ======================================== */
+.facebook-section {
+    max-width: 1000px;
+    margin: 0 auto var(--spacing-2xl);
+    padding: 0 var(--spacing-lg);
+    display: flex;
+    justify-content: center;
+}
+
+.facebook-section .fb-page,
+.facebook-section .fb-page span,
+.facebook-section .fb-page span iframe {
+    width: 100% !important;
+    max-width: 500px;
+}
+
+/* ========================================
    CALAVERITA DIVIDER — Decorative ornament
    ======================================== */
 .calaverita-divider {
