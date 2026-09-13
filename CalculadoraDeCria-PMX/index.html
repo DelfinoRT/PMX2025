@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeriquitosMex - Calculadora de Cría</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="calculator.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;500;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <a href="../index.html">
+                <img src="../recursos/PMX-Logo.png" alt="Logo PeriquitosMex" class="logo">
+            </a>
+            <span class="navbar-brand">PeriquitosMex</span>
+        </div>
+        <button class="menu-toggle" aria-label="Menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="navbar-menu">
+            <button data-page="../index.html"><span class="icon icon-bird"></span> Sobre Nosotros</button>
+            <button data-page="../familiapmx.html"><span class="icon icon-group"></span> Familia PMX</button>
+            <button data-page="../biblioteca.html"><span class="icon icon-book"></span> Biblioteca</button>
+            <button data-page="../contacto.html"><span class="icon icon-mail"></span> Contacto</button>
+            <button data-page="../mutacionesjuego.html"><span class="icon icon-dna"></span> Juego de Mutaciones</button>
+        </div>
+    </nav>
+
+    <main class="calculator-shell">
+        <div><br><br><br><br><br><br></div>
+        <header class="calculator-hero">
+            <div>
+                <p class="calculator-kicker">Laboratorio genético PMX</p>
+                <h1>Calculadora de Cría</h1>
+                <p class="calculator-intro">
+                    Configura dos progenitores, revisa sus genotipos y calcula la descendencia probable con el modelo ZZ/ZW de periquito australiano.
+                </p>
+            </div>
+            <div class="model-badge" aria-label="Model  o genético">
+                <span class="model-badge-icon">ZZ</span>
+                <div>
+                    <strong>Modelo mendeliano</strong>
+                    <span>Autosómico + ligado al sexo</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="calculator-welcome section" aria-labelledby="calculator-title">
+            <div class="welcome-copy">
+                <h2 id="calculator-title"><span class="icon icon-dna"></span> Planifica un cruce</h2>
+                <p>
+                    Selecciona el sexo y el estado genético de cada progenitor. Los estados <strong>Portador</strong>, <strong>SF</strong> y <strong>DF</strong> representan información genética confirmada; no son suposiciones visuales.
+                </p>
+            </div>
+            <div class="welcome-actions">
+                <button class="btn btn-secondary" id="load-example" type="button">Cargar ejemplo</button>
+                <button class="btn btn-secondary" id="clear-parents" type="button">Limpiar progenitores</button>
+            </div>
+        </section>
+
+        <section class="parent-grid" aria-label="Progenitores">
+            <article class="parent-panel parent-panel-male" data-parent="male">
+                <div class="parent-heading">
+                    <div>
+                        <p class="parent-label">Progenitor 1</p>
+                        <h2>Macho</h2>
+                    </div>
+                    <span class="sex-chip">ZZ</span>
+                </div>
+                <div class="mutation-toolbar">
+                    <label class="mutation-search">
+                        <span>Buscar mutación</span>
+                        <input class="form-control" type="search" data-mutation-search placeholder="Ej. azul, opalino, ino..." autocomplete="off">
+                    </label>
+                    <div class="mutation-filters" role="group" aria-label="Filtrar mutaciones">
+                        <button class="mutation-filter active" type="button" data-mutation-filter="all">Todas</button>
+                        <button class="mutation-filter" type="button" data-mutation-filter="base">Base</button>
+                        <button class="mutation-filter" type="button" data-mutation-filter="color">Color</button>
+                        <button class="mutation-filter" type="button" data-mutation-filter="pattern">Patrón</button>
+                        <button class="mutation-filter" type="button" data-mutation-filter="sex">Ligadas al sexo</button>
+                        <button class="mutation-filter" type="button" data-mutation-filter="rare">Raras</button>
+                    </div>
+                </div>
+                <div class="mutation-grid" id="male-loci" aria-live="polite"></div>
+            </article>
+
+            <article class="parent-panel parent-panel-female" data-parent="female">
+                <div class="parent-heading">
+                    <div>
+                        <p class="parent-label">Progenitor 2</p>
+                        <h2>Hembra</h2>
+                    </div>
+                    <span class="sex-chip">ZW</span>
+                </div>
+                <div class="mutation-toolbar">
+                    <label class="mutation-search">
+                        <span>Buscar mutación</span>
+                        <input class="form-control" type="search" data-mutation-search placeholder="Ej. azul, opalino, ino..." autocomplete="off">
+                    </label>
+                    <div class="mutation-filters" role="group" aria-label="Filtrar mutaciones">
+                        <button class="mutation-filter active" type="button" data-mutation-filter="all">Todas</button>
+                        <button class="mutation-filter" type="button" data-mutation-filter="base">Base</button>
+                        <button class="mutation-filter" type="button" data-mutation-filter="color">Color</button>
+                        <button class="mutation-filter" type="button" data-mutation-filter="pattern">Patrón</button>
+                        <button class="mutation-filter" type="button" data-mutation-filter="sex">Ligadas al sexo</button>
+                        <button class="mutation-filter" type="button" data-mutation-filter="rare">Raras</button>
+                    </div>
+                </div>
+                <div class="mutation-grid" id="female-loci" aria-live="polite"></div>
+            </article>
+        </section>
+
+        <section class="calculator-controls section" aria-labelledby="controls-title">
+            <div>
+                <h2 id="controls-title"><span class="icon icon-scroll"></span> Revisión antes de calcular</h2>
+                <p id="parent-summary">Completa los estados genéticos de ambos progenitores para ver el resumen.</p>
+            </div>
+            <div class="control-actions">
+                <button class="btn btn-secondary" id="swap-parents" type="button">Intercambiar progenitores</button>
+                <button class="btn btn-primary" id="calculate" type="button">Calcular descendencia</button>
+            </div>
+        </section>
+
+        <section class="results-section" id="results-section" aria-live="polite" hidden>
+            <div class="results-heading">
+                <div>
+                    <p class="parent-label">Resultado del cruce</p>
+                    <h2>Descendencia probable</h2>
+                </div>
+                <div class="result-filters" role="group" aria-label="Filtrar resultados">
+                    <button class="result-filter active" type="button" data-filter="all">Todos</button>
+                    <button class="result-filter" type="button" data-filter="male">Machos</button>
+                    <button class="result-filter" type="button" data-filter="female">Hembras</button>
+                </div>
+            </div>
+
+            <div class="summary-grid" id="summary-grid"></div>
+            <div class="results-layout">
+                <div class="probability-panel section">
+                    <div class="panel-heading">
+                        <div>
+                            <h3><span class="icon icon-doc"></span> Fenotipos y probabilidades</h3>
+                            <p>Los porcentajes agrupan descendientes visualmente iguales.</p>
+                        </div>
+                        <span class="outcome-count" id="outcome-count">0 resultados</span>
+                    </div>
+                    <div class="probability-list" id="probability-list"></div>
+                </div>
+                <aside class="genotype-panel section">
+                    <div class="panel-heading">
+                        <div>
+                            <h3><span class="icon icon-dna"></span> Genética detallada</h3>
+                            <p>Selecciona un resultado para ver alelos, portadores y enmascaramientos.</p>
+                        </div>
+                    </div>
+                    <div class="genotype-empty" id="genotype-empty">Selecciona una fila de la tabla para ampliar su genotipo.</div>
+                    <div class="genotype-detail" id="genotype-detail" hidden></div>
+                </aside>
+            </div>
+            <div class="assumptions-note">
+                <strong>Supuestos del modelo:</strong>
+                <span id="assumptions-text">Herencia mendeliana independiente, sin recombinación salvo las reglas configuradas en el motor genético.</span>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Comunidad Ornitol&oacute;gica de PeriquitosMex A.C.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script src="genetics-engine.js"></script>
+    <script src="calculator.js"></script>
+</body>
+</html>

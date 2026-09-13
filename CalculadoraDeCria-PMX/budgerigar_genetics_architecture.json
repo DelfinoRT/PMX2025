@@ -1,0 +1,695 @@
+{
+  "schema_version": "1.0.0",
+  "document": {
+    "title": "Arquitectura base — Calculadora genética de periquito australiano",
+    "species": "Melopsittacus undulatus",
+    "language": "es",
+    "purpose": "Modelo genético orientado a software para predecir genotipos, fenotipos, splits y probabilidades de descendencia, permitiendo múltiples mutaciones simultáneas y efectos de enmascaramiento.",
+    "important_principle": "Una mutación visible no debe almacenarse como el estado genético completo del ave. El motor debe almacenar alelos por locus y derivar el fenotipo."
+  },
+  "sex_system": {
+    "male": "ZZ",
+    "female": "ZW",
+    "sex_linked_chromosome": "Z",
+    "female_split_for_z_linked": false
+  },
+  "genetic_model": {
+    "inheritance_types": [
+      "autosomal_recessive",
+      "autosomal_dominant",
+      "autosomal_incomplete_dominant",
+      "sex_linked_recessive",
+      "sex_linked_allelic_series",
+      "multi_locus_combination",
+      "modifier",
+      "unknown_or_controversial"
+    ],
+    "representation": {
+      "autosomal": "two alleles per locus",
+      "sex_linked_male": "two Z alleles per Z-linked locus",
+      "sex_linked_female": "one Z allele plus W",
+      "phenotype": "derived from complete genotype, modifiers and epistasis",
+      "split": "a phenotype-independent carrier state; never use 'split' as the underlying genotype"
+    }
+  },
+  "base_colour": {
+    "locus": "blue_series",
+    "concept": "The blue/parblue locus determines whether yellow psittacin pigment is produced and includes multiple allelic states.",
+    "alleles": [
+      {
+        "id": "blue_wt",
+        "name": "Wild type / green-series"
+      },
+      {
+        "id": "blue_1",
+        "name": "Blue 1"
+      },
+      {
+        "id": "blue_2",
+        "name": "Blue 2"
+      },
+      {
+        "id": "yellowface_1",
+        "name": "Yellowface I / Parblue combination"
+      },
+      {
+        "id": "yellowface_2",
+        "name": "Yellowface II"
+      },
+      {
+        "id": "goldenface",
+        "name": "Goldenface"
+      }
+    ],
+    "note": "Yellowface I, Yellowface II and Goldenface must not be implemented as independent boolean mutations. They belong to the blue/parblue allele system and their visible expression depends on the alleles paired at the same locus."
+  },
+  "loci": [
+    {
+      "id": "blue_series",
+      "category": "base_colour",
+      "inheritance": "autosomal_allelic_series",
+      "alleles": [
+        "blue_wt",
+        "blue_1",
+        "blue_2",
+        "yellowface_1",
+        "yellowface_2",
+        "goldenface"
+      ],
+      "phenotype_engine": "blue_parblue_rules"
+    },
+    {
+      "id": "dark_factor",
+      "category": "colour_modifier",
+      "inheritance": "autosomal_incomplete_dominant",
+      "alleles": [
+        "normal",
+        "dark"
+      ],
+      "states": {
+        "0": "normal",
+        "1": "single_factor",
+        "2": "double_factor"
+      },
+      "outputs": {
+        "green": {
+          "0": "Light Green",
+          "1": "Dark Green",
+          "2": "Olive Green"
+        },
+        "blue": {
+          "0": "Sky Blue",
+          "1": "Cobalt",
+          "2": "Mauve"
+        }
+      }
+    },
+    {
+      "id": "grey_factor",
+      "category": "colour_modifier",
+      "inheritance": "autosomal_dominant_or_incomplete_dominant_model",
+      "alleles": [
+        "normal",
+        "grey"
+      ],
+      "states": {
+        "0": "normal",
+        "1": "SF Grey",
+        "2": "DF Grey"
+      }
+    },
+    {
+      "id": "violet",
+      "category": "colour_modifier",
+      "inheritance": "autosomal_incomplete_dominant",
+      "alleles": [
+        "normal",
+        "violet"
+      ],
+      "states": {
+        "0": "normal",
+        "1": "SF Violet",
+        "2": "DF Violet"
+      }
+    },
+    {
+      "id": "spangle",
+      "category": "pattern",
+      "inheritance": "autosomal_incomplete_dominant",
+      "alleles": [
+        "normal",
+        "spangle"
+      ],
+      "states": {
+        "0": "normal",
+        "1": "SF Spangle",
+        "2": "DF Spangle"
+      }
+    },
+    {
+      "id": "dominant_pied",
+      "category": "pied",
+      "inheritance": "autosomal_incomplete_dominant",
+      "alleles": [
+        "normal",
+        "dominant_pied"
+      ],
+      "states": {
+        "0": "normal",
+        "1": "SF Dominant Pied",
+        "2": "DF Dominant Pied"
+      }
+    },
+    {
+      "id": "clearflight_pied",
+      "category": "pied",
+      "inheritance": "autosomal_incomplete_dominant",
+      "alleles": [
+        "normal",
+        "clearflight_pied"
+      ],
+      "states": {
+        "0": "normal",
+        "1": "SF Clearflight Pied",
+        "2": "DF Clearflight Pied"
+      }
+    },
+    {
+      "id": "easley_clearbody",
+      "category": "clearbody",
+      "inheritance": "autosomal_dominant",
+      "alleles": [
+        "normal",
+        "easley_clearbody"
+      ]
+    },
+    {
+      "id": "anthracite",
+      "category": "colour_modifier",
+      "inheritance": "autosomal_incomplete_dominant",
+      "alleles": [
+        "normal",
+        "anthracite"
+      ],
+      "states": {
+        "0": "normal",
+        "1": "SF Anthracite",
+        "2": "DF Anthracite"
+      },
+      "status": "rare"
+    },
+    {
+      "id": "australian_pied",
+      "category": "pied",
+      "inheritance": "autosomal_incomplete_dominant",
+      "alleles": [
+        "normal",
+        "australian_pied"
+      ]
+    },
+    {
+      "id": "dutch_pied",
+      "category": "pied",
+      "inheritance": "autosomal_incomplete_dominant",
+      "alleles": [
+        "normal",
+        "dutch_pied"
+      ]
+    },
+    {
+      "id": "recessive_pied",
+      "category": "pied",
+      "inheritance": "autosomal_recessive",
+      "alleles": [
+        "normal",
+        "recessive_pied"
+      ]
+    },
+    {
+      "id": "dilution",
+      "category": "dilution",
+      "inheritance": "autosomal_allelic_series",
+      "alleles": [
+        "normal",
+        "dilute",
+        "clearwing",
+        "greywing"
+      ],
+      "rules": [
+        "dilute/dilute -> Dilute",
+        "clearwing/clearwing -> Clearwing",
+        "greywing/greywing -> Greywing",
+        "clearwing/greywing -> Fullbody Greywing",
+        "other pairings must be evaluated using the allele hierarchy rather than independent Boolean genes"
+      ]
+    },
+    {
+      "id": "blackface",
+      "category": "melanism",
+      "inheritance": "autosomal_recessive",
+      "alleles": [
+        "normal",
+        "blackface"
+      ],
+      "status": "rare"
+    },
+    {
+      "id": "blackwing",
+      "category": "melanism_pattern",
+      "inheritance": "autosomal_recessive",
+      "alleles": [
+        "normal",
+        "blackwing"
+      ],
+      "status": "rare"
+    },
+    {
+      "id": "saddleback",
+      "category": "pattern",
+      "inheritance": "autosomal_recessive",
+      "alleles": [
+        "normal",
+        "saddleback"
+      ],
+      "status": "rare_or_extinct_in_some_lines"
+    },
+    {
+      "id": "german_fallow",
+      "category": "fallow",
+      "inheritance": "autosomal_recessive",
+      "alleles": [
+        "normal",
+        "german_fallow"
+      ]
+    },
+    {
+      "id": "english_fallow",
+      "category": "fallow",
+      "inheritance": "autosomal_recessive",
+      "alleles": [
+        "normal",
+        "english_fallow"
+      ]
+    },
+    {
+      "id": "scottish_fallow",
+      "category": "fallow",
+      "inheritance": "autosomal_recessive",
+      "alleles": [
+        "normal",
+        "scottish_fallow"
+      ]
+    },
+    {
+      "id": "opaline",
+      "category": "sex_linked_pattern",
+      "inheritance": "sex_linked_recessive",
+      "chromosome": "Z",
+      "alleles": [
+        "normal",
+        "opaline"
+      ]
+    },
+    {
+      "id": "cinnamon",
+      "category": "sex_linked_melanin",
+      "inheritance": "sex_linked_recessive",
+      "chromosome": "Z",
+      "alleles": [
+        "normal",
+        "cinnamon"
+      ]
+    },
+    {
+      "id": "ino",
+      "category": "sex_linked_albinism",
+      "inheritance": "sex_linked_allelic_series",
+      "chromosome": "Z",
+      "alleles": [
+        "normal",
+        "texas_clearbody",
+        "ino"
+      ],
+      "dominance_order": [
+        "normal",
+        "texas_clearbody",
+        "ino"
+      ],
+      "phenotypes": {
+        "ino_on_green_series": "Lutino",
+        "ino_on_blue_series": "Albino",
+        "texas_clearbody": "Texas Clearbody"
+      },
+      "critical_rule": "Texas Clearbody and Ino are alleles of the same Z-linked locus; do not model them as two independent genes."
+    },
+    {
+      "id": "slate",
+      "category": "sex_linked_colour_modifier",
+      "inheritance": "sex_linked_recessive",
+      "chromosome": "Z",
+      "alleles": [
+        "normal",
+        "slate"
+      ],
+      "status": "less_well_attested_than_opaline_cinnamon_ino"
+    },
+    {
+      "id": "crest",
+      "category": "structural",
+      "inheritance": "polygenic_or_incompletely_defined",
+      "alleles": [
+        "normal",
+        "crest_factor"
+      ],
+      "forms": [
+        "circular",
+        "semicircular",
+        "tufted"
+      ],
+      "calculator_mode": "optional_module",
+      "status": "do_not_force_into_simple_mendelian_model"
+    },
+    {
+      "id": "nsl_ino",
+      "category": "autosomal_albinism",
+      "inheritance": "autosomal_recessive",
+      "alleles": [
+        "normal",
+        "nsl_ino"
+      ],
+      "status": "extremely_rare_or_historical"
+    },
+    {
+      "id": "manto_negro",
+      "category": "rare_pattern",
+      "inheritance": "autosomal_dominant",
+      "alleles": [
+        "normal",
+        "manto_negro"
+      ],
+      "status": "modern_rare_mutation; verify against target breeding standard before production"
+    },
+    {
+      "id": "faded",
+      "category": "rare_dilution",
+      "inheritance": "autosomal_recessive",
+      "alleles": [
+        "normal",
+        "faded"
+      ],
+      "status": "rare_or_historical"
+    },
+    {
+      "id": "palefallow",
+      "category": "fallow",
+      "inheritance": "autosomal_recessive",
+      "alleles": [
+        "normal",
+        "palefallow"
+      ],
+      "status": "rare; nomenclature varies"
+    },
+    {
+      "id": "brownwing",
+      "category": "melanin",
+      "inheritance": "uncertain_or_historical",
+      "alleles": [
+        "normal",
+        "brownwing"
+      ],
+      "status": "do_not_enable_by_default"
+    },
+    {
+      "id": "darkwing",
+      "category": "modifier",
+      "inheritance": "autosomal_incomplete_dominant",
+      "alleles": [
+        "normal",
+        "darkwing"
+      ],
+      "status": "rare; expression depends strongly on dilution-locus genotype"
+    }
+  ],
+  "compound_phenotypes": [
+    {
+      "id": "lacewing",
+      "display_name_es": "Lacewing / Canela-Ino",
+      "type": "multi_locus_combination",
+      "genetic_definition": {
+        "required_loci": {
+          "cinnamon": "mutant",
+          "ino": "ino"
+        },
+        "phase": "cis_on_same_Z_when_present_as_lacewing"
+      },
+      "important": "No crear un locus 'lacewing'. Es una combinación de Cinnamon + Ino en el cromosoma Z.",
+      "breeder_display": "Lacewing"
+    },
+    {
+      "id": "dark_eyed_clear",
+      "display_name_es": "Dark-Eyed Clear / Clear-Pied",
+      "type": "multi_locus_combination",
+      "genetic_definition": {
+        "required_loci": [
+          "clearflight_pied",
+          "recessive_pied"
+        ]
+      },
+      "important": "El fenotipo emergente debe conservar los genotipos originales aunque el plumaje sea casi completamente amarillo/blanco."
+    },
+    {
+      "id": "rainbow",
+      "display_name_es": "Rainbow",
+      "type": "multi_locus_combination",
+      "genetic_definition": {
+        "required_traits": [
+          "blue_series",
+          "opaline",
+          "clearwing",
+          "yellowface_or_goldenface"
+        ]
+      },
+      "important": "Es un nombre de combinación, no un locus independiente."
+    },
+    {
+      "id": "greywing_fullbody",
+      "display_name_es": "Fullbody Greywing",
+      "type": "allelic_combination",
+      "genetic_definition": {
+        "locus": "dilution",
+        "alleles": [
+          "clearwing",
+          "greywing"
+        ]
+      }
+    }
+  ],
+  "example_multimutant_birds": [
+    {
+      "id": "spangle_opaline",
+      "description": "Perlado/Spangle + Opalino",
+      "genotype_concept": {
+        "spangle": "SF_or_DF",
+        "opaline": "visual"
+      }
+    },
+    {
+      "id": "texas_clearbody_opaline",
+      "description": "Texas Clearbody + Opalino",
+      "genotype_concept": {
+        "ino": "texas_clearbody",
+        "opaline": "visual"
+      }
+    },
+    {
+      "id": "ino_pied",
+      "description": "Lutino/Albino + Pied",
+      "genotype_concept": {
+        "ino": "visual",
+        "pied": "visual"
+      },
+      "phenotype_note": "El Ino elimina la melanina y puede hacer que el patrón de pied sea poco o nada visible; el motor debe conservar pied en el genotipo."
+    },
+    {
+      "id": "blackface_blackwing",
+      "description": "Blackface + Blackwing",
+      "genotype_concept": {
+        "blackface": "visual",
+        "blackwing": "visual"
+      },
+      "phenotype_note": "Puede producir una combinación extremadamente melanizada; no debe reducirse a una sola mutación."
+    },
+    {
+      "id": "cinnamon_opaline",
+      "description": "Canela + Opalino",
+      "genotype_concept": {
+        "cinnamon": "visual",
+        "opaline": "visual"
+      }
+    },
+    {
+      "id": "violet_spangle_blue",
+      "description": "Azul + Violeta + Spangle",
+      "genotype_concept": {
+        "blue_series": "blue",
+        "violet": "SF_or_DF",
+        "spangle": "SF_or_DF"
+      }
+    }
+  ],
+  "epistasis_and_masking": [
+    {
+      "id": "ino_global_melanin_mask",
+      "priority": 100,
+      "rule": "Visual Ino removes eumelanin strongly enough that many melanistic/pattern mutations become visually masked or greatly reduced.",
+      "affected_examples": [
+        "Blackface",
+        "Blackwing",
+        "Cinnamon",
+        "many pied/pattern expressions"
+      ],
+      "engine_action": "Keep underlying genotype; suppress or annotate visual expression."
+    },
+    {
+      "id": "texas_clearbody_vs_ino",
+      "priority": 95,
+      "rule": "Texas Clearbody and Ino are alleles at the same Z-linked locus. A TCB/ino cock is phenotypically Texas Clearbody, not a simultaneous independent TCB + Ino bird.",
+      "engine_action": "Resolve allele dominance before phenotype composition."
+    },
+    {
+      "id": "opaline_masks_blackface",
+      "priority": 80,
+      "rule": "When both are visual, Opaline can substantially obscure the diagnostic Blackface pattern.",
+      "engine_action": "Return genotype flags for both; phenotype renderer may show Opaline as primary visible pattern."
+    },
+    {
+      "id": "yellowface_masked_by_green",
+      "priority": 75,
+      "rule": "Yellowface/Goldenface expression is primarily meaningful on blue/parblue backgrounds; on green-series birds the extra yellow is visually masked by existing yellow pigment.",
+      "engine_action": "Do not discard the allele. Mark as genetically present but phenotypically masked."
+    },
+    {
+      "id": "dark_eyed_clear_mask",
+      "priority": 90,
+      "rule": "Clearflight/Dutch Pied combined with homozygous Recessive Pied can produce a near-clear phenotype while the underlying pied genotypes remain.",
+      "engine_action": "Create compound phenotype; preserve both loci."
+    },
+    {
+      "id": "df_spangle_visual_masking",
+      "priority": 70,
+      "rule": "DF Spangle can greatly reduce visible body markings.",
+      "engine_action": "Do not interpret reduced markings as absence of other underlying loci."
+    },
+    {
+      "id": "dilution_allelic_resolution",
+      "priority": 90,
+      "rule": "Clearwing, Greywing and Dilute share the dilution locus and must be resolved as alleles before combining phenotypes.",
+      "engine_action": "Never allow two alleles from the same locus to be independently selected as if they were separate genes."
+    }
+  ],
+  "phenotype_pipeline": [
+    "1. Validate sex and chromosome model.",
+    "2. Resolve each parent's complete genotype, including confirmed splits.",
+    "3. Generate gametes per locus, including Z-linked phase.",
+    "4. Combine parental gametes into offspring genotypes.",
+    "5. Resolve allelic-series dominance at each locus.",
+    "6. Apply base colour / blue-parblue phenotype.",
+    "7. Apply dark, grey and violet colour modifiers.",
+    "8. Apply dilution-locus resolution.",
+    "9. Apply pattern mutations such as Spangle, Opaline and Pied.",
+    "10. Apply melanin/albinism mutations.",
+    "11. Apply epistasis and masking rules in priority order.",
+    "12. Derive display phenotype names from the surviving visible traits.",
+    "13. Retain hidden genotype/split information separately.",
+    "14. Aggregate genetically identical offspring outcomes and calculate probabilities.",
+    "15. Optionally aggregate visually identical outcomes while exposing a 'hidden genetics' section."
+  ],
+  "offspring_result_model": {
+    "genotype": "Complete locus-by-locus genotype",
+    "sex": "male_or_female",
+    "visible_traits": [],
+    "masked_traits": [],
+    "carrier_traits": [],
+    "compound_traits": [],
+    "display_name": "Derived phenotype name",
+    "probability": 0.0,
+    "probability_basis": "Mendelian gamete probability plus recombination rules where applicable"
+  },
+  "ui_architecture": {
+    "parent_input": {
+      "sex": "required",
+      "visible_mutations": "required",
+      "confirmed_splits": "optional",
+      "possible_splits": "optional",
+      "genotype_override": "advanced_mode"
+    },
+    "mutation_selector": {
+      "rule": "Select traits by locus rather than as independent checkboxes.",
+      "example": "Choose Spangle SF and Opaline simultaneously; do not make 'Spangle Opaline' a separate mutation."
+    },
+    "result_views": [
+      "phenotype_summary",
+      "genotype_details",
+      "splits_and_carriers",
+      "masked_mutations",
+      "compound_phenotypes",
+      "sex_distribution",
+      "probability_table",
+      "breeding_notes"
+    ]
+  },
+  "validation_rules": [
+    "A hen cannot be split for a Z-linked recessive mutation.",
+    "A Z-linked male may be normal, split, or visual depending on his two Z alleles.",
+    "Two alleles from the same autosomal locus cannot be stored as independent mutation booleans.",
+    "Two alleles from the ino locus cannot be stored as independent TCB and Ino genes.",
+    "Lacewing must be represented as Cinnamon + Ino with phase information, not as an independent locus.",
+    "A visible phenotype does not prove that other loci are genetically absent.",
+    "Masking must never delete genotype information.",
+    "Phenotype aggregation must not merge offspring with different hidden genotypes unless the UI explicitly labels them as genetically distinct.",
+    "Rare or historically disputed mutations must carry a confidence/status field and be switchable in the engine."
+  ],
+  "implementation_recommendation": {
+    "architecture": "rules_engine",
+    "core_entities": [
+      "Locus",
+      "Allele",
+      "BirdGenotype",
+      "Gamete",
+      "OffspringGenotype",
+      "PhenotypeRule",
+      "MaskingRule",
+      "CompoundPhenotype"
+    ],
+    "do_not_build": [
+      "A flat mutation-to-mutation Punnett calculator",
+      "Independent Boolean flags for allelic-series mutations",
+      "A phenotype-only parent model",
+      "A single 'mutation name' field"
+    ],
+    "recommended_engine": {
+      "phase_1": "Autosomal Mendelian engine",
+      "phase_2": "ZZ/ZW sex-linked engine",
+      "phase_3": "Allelic-series engine",
+      "phase_4": "Multi-locus phenotype composer",
+      "phase_5": "Epistasis/masking priority engine",
+      "phase_6": "Linkage/recombination engine for Z-linked loci",
+      "phase_7": "Rare/experimental mutation plugin layer"
+    }
+  },
+  "source_basis": [
+    "Budgerigar Council of South Australia — Budgerigar Genetics",
+    "World Budgerigar Organisation — Colour Standards",
+    "Budgerigar Society — Ideal Budgerigar / Colour Standards",
+    "Terry Martin — A Guide to Colour Mutations and Genetics in Parrots",
+    "MUTAVI Research — sex-linked mutation and Lacewing research",
+    "Budgerigar colour genetics reference tables"
+  ],
+  "research_status": {
+    "core_mutations": "usable as architecture baseline",
+    "rare_mutations": "requires per-mutation confidence flags",
+    "phenotype_naming": "should be separated from genotype",
+    "show_standard": "may differ by national organisation",
+    "warning": "The engine should preserve uncertainty rather than inventing deterministic inheritance for poorly documented mutations."
+  }
+}

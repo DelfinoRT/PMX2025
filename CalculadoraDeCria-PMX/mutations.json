@@ -1,0 +1,971 @@
+{
+  "schema_version": "2.0.0",
+  "file_type": "budgerigar_mutation_master",
+  "species": {
+    "common_name": "Budgerigar",
+    "scientific_name": "Melopsittacus undulatus"
+  },
+  "model_notes": [
+    "This file is a genotype/rules catalogue, not a flat list of visible colours.",
+    "A mutation must be represented at its locus; compound phenotypes are derived from multiple loci.",
+    "Rare, disputed, historical, or source-dependent mutations are explicitly flagged.",
+    "Phenotype masking must never remove underlying genotype information."
+  ],
+  "inheritance_types": {
+    "autosomal_recessive": {
+      "code": "AR",
+      "description": "Two mutant alleles are normally required for visual expression."
+    },
+    "autosomal_incomplete_dominant": {
+      "code": "AID",
+      "description": "One mutant allele can alter phenotype; homozygous/double-factor states may differ."
+    },
+    "autosomal_dominant": {
+      "code": "AD",
+      "description": "One mutant allele is sufficient for expression."
+    },
+    "sex_linked_recessive": {
+      "code": "ZLR",
+      "description": "Z-linked recessive; males are ZZ and females are ZW."
+    },
+    "sex_linked_allelic_series": {
+      "code": "ZAS",
+      "description": "Multiple alleles occupy the same Z-linked locus and must be resolved by an allele dominance hierarchy."
+    },
+    "polygenic_or_uncertain": {
+      "code": "POLY",
+      "description": "Not safely representable as a simple Mendelian locus."
+    },
+    "compound": {
+      "code": "CMP",
+      "description": "Named phenotype produced by a defined combination of loci."
+    },
+    "experimental": {
+      "code": "EXP",
+      "description": "Rare, historical, disputed, or insufficiently standardized; disabled by default."
+    }
+  },
+  "sex_system": {
+    "male": "ZZ",
+    "female": "ZW",
+    "rules": [
+      "Females have one Z-linked allele and cannot be split/carrier for a second recessive Z-linked allele in the usual Mendelian model.",
+      "Males can be homozygous, heterozygous/split, or visual for Z-linked recessives.",
+      "W carries no homologous allele for the Z-linked mutation loci in this model."
+    ]
+  },
+  "loci": [
+    {
+      "id": "blue_series",
+      "category": "base_colour",
+      "inheritance": "autosomal_allelic_series",
+      "status": "core",
+      "alleles": [
+        {
+          "id": "blue_wt",
+          "name": "Green / wild type",
+          "dominance_rank": 0
+        },
+        {
+          "id": "blue_1",
+          "name": "Blue 1",
+          "dominance_rank": 1
+        },
+        {
+          "id": "blue_2",
+          "name": "Blue 2",
+          "dominance_rank": 1
+        },
+        {
+          "id": "yellowface_1",
+          "name": "Yellowface Mutant 1",
+          "dominance_rank": 1
+        },
+        {
+          "id": "yellowface_2",
+          "name": "Yellowface Mutant 2",
+          "dominance_rank": 1
+        },
+        {
+          "id": "goldenface",
+          "name": "Goldenface",
+          "dominance_rank": 1
+        }
+      ],
+      "rules": [
+        "Blue 1/Blue 2 is a hetero-allelic combination associated with Yellowface Mutant 1.",
+        "Yellowface and Goldenface are part of the blue/parblue allelic system and must not be represented as independent Boolean genes.",
+        "Exact visual expression depends on the resulting blue-series genotype and other modifiers.",
+        "Yellowface/Goldenface expression can be visually reduced or masked in green-series combinations."
+      ]
+    },
+    {
+      "id": "dark_factor",
+      "category": "colour_modifier",
+      "inheritance": "autosomal_incomplete_dominant",
+      "status": "core",
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dose": 0
+        },
+        {
+          "id": "dark",
+          "name": "Dark Factor",
+          "dose": 1
+        },
+        {
+          "id": "dark_dark",
+          "name": "Double Factor",
+          "dose": 2
+        }
+      ]
+    },
+    {
+      "id": "grey",
+      "category": "colour_modifier",
+      "inheritance": "autosomal_incomplete_dominant",
+      "status": "core",
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dose": 0
+        },
+        {
+          "id": "grey",
+          "name": "Grey",
+          "dose": 1
+        }
+      ]
+    },
+    {
+      "id": "violet",
+      "category": "colour_modifier",
+      "inheritance": "autosomal_incomplete_dominant",
+      "status": "core",
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dose": 0
+        },
+        {
+          "id": "violet",
+          "name": "Violet",
+          "dose": 1
+        },
+        {
+          "id": "violet_violet",
+          "name": "Double Factor Violet",
+          "dose": 2
+        }
+      ]
+    },
+    {
+      "id": "spangle",
+      "category": "pattern",
+      "inheritance": "autosomal_incomplete_dominant",
+      "status": "core",
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dose": 0
+        },
+        {
+          "id": "spangle",
+          "name": "Spangle / Perlado",
+          "dose": 1
+        },
+        {
+          "id": "spangle_df",
+          "name": "Double Factor Spangle",
+          "dose": 2
+        }
+      ],
+      "phenotype_rules": [
+        "Single factor produces Spangle/Perlado pattern.",
+        "Double factor can produce a substantially reduced-marking phenotype and can visually mask other pattern traits."
+      ]
+    },
+    {
+      "id": "dominant_pied",
+      "category": "pied",
+      "inheritance": "autosomal_incomplete_dominant",
+      "status": "core",
+      "aliases": [
+        "Australian Pied",
+        "Banded Pied"
+      ],
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dose": 0
+        },
+        {
+          "id": "dominant_pied",
+          "name": "Dominant Pied",
+          "dose": 1
+        },
+        {
+          "id": "dominant_pied_df",
+          "name": "Dominant Pied Double Factor",
+          "dose": 2
+        }
+      ]
+    },
+    {
+      "id": "clearflight_pied",
+      "category": "pied",
+      "inheritance": "autosomal_incomplete_dominant",
+      "status": "core",
+      "aliases": [
+        "Clearflighted Dutch Pied",
+        "Piednape"
+      ],
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dose": 0
+        },
+        {
+          "id": "clearflight_pied",
+          "name": "Clearflight Pied",
+          "dose": 1
+        },
+        {
+          "id": "clearflight_pied_df",
+          "name": "Double Factor Clearflight Pied",
+          "dose": 2
+        }
+      ]
+    },
+    {
+      "id": "dutch_pied",
+      "category": "pied",
+      "inheritance": "autosomal_incomplete_dominant",
+      "status": "core",
+      "aliases": [
+        "Continental Dutch Pied"
+      ],
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dose": 0
+        },
+        {
+          "id": "dutch_pied",
+          "name": "Dutch Pied",
+          "dose": 1
+        },
+        {
+          "id": "dutch_pied_df",
+          "name": "Dutch Pied Double Factor",
+          "dose": 2
+        }
+      ]
+    },
+    {
+      "id": "recessive_pied",
+      "category": "pied",
+      "inheritance": "autosomal_recessive",
+      "status": "core",
+      "aliases": [
+        "Danish Pied",
+        "Harlequin"
+      ],
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dose": 0
+        },
+        {
+          "id": "recessive_pied",
+          "name": "Recessive Pied"
+        }
+      ]
+    },
+    {
+      "id": "dilution",
+      "category": "melanin_dilution",
+      "inheritance": "autosomal_allelic_series",
+      "status": "core",
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dominance_rank": 0
+        },
+        {
+          "id": "clearwing",
+          "name": "Clearwing",
+          "dominance_rank": 1
+        },
+        {
+          "id": "greywing",
+          "name": "Greywing",
+          "dominance_rank": 1
+        },
+        {
+          "id": "dilute",
+          "name": "Dilute / Full Dilution",
+          "dominance_rank": 1
+        }
+      ],
+      "rules": [
+        "Clearwing and Greywing occupy the same dilution locus in the simplified production model.",
+        "Clearwing/Greywing hetero-allelic birds can produce Fullbody Greywing phenotype.",
+        "Do not store Clearwing and Greywing as independent genes."
+      ]
+    },
+    {
+      "id": "blackface",
+      "category": "pattern",
+      "inheritance": "autosomal_recessive",
+      "status": "core",
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dose": 0
+        },
+        {
+          "id": "blackface",
+          "name": "Blackface",
+          "dose": 2
+        }
+      ],
+      "masking": [
+        {
+          "when": "opaline_visual",
+          "effect": "visually_mask"
+        }
+      ]
+    },
+    {
+      "id": "blackwing",
+      "category": "pattern_modifier",
+      "inheritance": "autosomal_recessive",
+      "status": "core",
+      "aliases": [
+        "Darkwing"
+      ],
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dose": 0
+        },
+        {
+          "id": "blackwing",
+          "name": "Blackwing",
+          "dose": 2
+        }
+      ],
+      "notes": [
+        "Terminology varies among sources; retain source_aliases separately from the internal ID."
+      ]
+    },
+    {
+      "id": "saddleback",
+      "category": "pattern",
+      "inheritance": "autosomal_recessive",
+      "status": "core_rare",
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dose": 0
+        },
+        {
+          "id": "saddleback",
+          "name": "Saddleback",
+          "dose": 2
+        }
+      ]
+    },
+    {
+      "id": "german_fallow",
+      "category": "fallow",
+      "inheritance": "autosomal_recessive",
+      "status": "core_rare",
+      "aliases": [
+        "German Fallow",
+        "European Fallow"
+      ],
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dose": 0
+        },
+        {
+          "id": "german_fallow",
+          "name": "German Fallow",
+          "dose": 2
+        }
+      ]
+    },
+    {
+      "id": "english_fallow",
+      "category": "fallow",
+      "inheritance": "autosomal_recessive",
+      "status": "core_rare",
+      "aliases": [
+        "English Fallow",
+        "Dun Fallow",
+        "Australian/Pale Fallow"
+      ],
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dose": 0
+        },
+        {
+          "id": "english_fallow",
+          "name": "English Fallow",
+          "dose": 2
+        }
+      ]
+    },
+    {
+      "id": "scottish_fallow",
+      "category": "fallow",
+      "inheritance": "autosomal_recessive",
+      "status": "core_rare",
+      "aliases": [
+        "Scottish Fallow"
+      ],
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dose": 0
+        },
+        {
+          "id": "scottish_fallow",
+          "name": "Scottish Fallow",
+          "dose": 2
+        }
+      ]
+    },
+    {
+      "id": "opaline",
+      "category": "sex_linked_pattern",
+      "inheritance": "sex_linked_recessive",
+      "status": "core",
+      "chromosome": "Z",
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal"
+        },
+        {
+          "id": "opaline",
+          "name": "Opaline"
+        }
+      ],
+      "masking": [
+        {
+          "when": "blackface_visual",
+          "effect": "visually_mask"
+        }
+      ]
+    },
+    {
+      "id": "cinnamon",
+      "category": "sex_linked_colour",
+      "inheritance": "sex_linked_recessive",
+      "status": "core",
+      "chromosome": "Z",
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal"
+        },
+        {
+          "id": "cinnamon",
+          "name": "Cinnamon"
+        }
+      ]
+    },
+    {
+      "id": "ino",
+      "category": "sex_linked_albino",
+      "inheritance": "sex_linked_allelic_series",
+      "status": "core",
+      "chromosome": "Z",
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dominance_rank": 0
+        },
+        {
+          "id": "texas_clearbody",
+          "name": "Texas Clearbody",
+          "dominance_rank": 1
+        },
+        {
+          "id": "pearly",
+          "name": "Pearly",
+          "dominance_rank": 2,
+          "status": "rare"
+        },
+        {
+          "id": "ino",
+          "name": "Ino",
+          "dominance_rank": 3
+        }
+      ],
+      "rules": [
+        "Wild type is dominant over mutant alleles.",
+        "Texas Clearbody is allelic to Ino and dominates Ino.",
+        "Pearly is included as a rare/optional allele and should remain source-configurable.",
+        "Ino strongly reduces/masks eumelanin-based visual traits.",
+        "TCB and Ino must never be stored as independent loci."
+      ]
+    },
+    {
+      "id": "slate",
+      "category": "sex_linked_colour",
+      "inheritance": "sex_linked_recessive",
+      "status": "core_rare",
+      "chromosome": "Z",
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal"
+        },
+        {
+          "id": "slate",
+          "name": "Slate"
+        }
+      ]
+    },
+    {
+      "id": "nsl_ino",
+      "category": "albino",
+      "inheritance": "autosomal_recessive",
+      "status": "rare_historical",
+      "enabled_by_default": false,
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dose": 0
+        },
+        {
+          "id": "nsl_ino",
+          "name": "NSL Ino",
+          "dose": 2
+        }
+      ]
+    },
+    {
+      "id": "easley_clearbody",
+      "category": "clearbody",
+      "inheritance": "autosomal_dominant",
+      "status": "core",
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dose": 0
+        },
+        {
+          "id": "easley_clearbody",
+          "name": "Easley Clearbody",
+          "dose": 1
+        }
+      ]
+    },
+    {
+      "id": "anthracite",
+      "category": "colour_modifier",
+      "inheritance": "autosomal_incomplete_dominant",
+      "status": "rare",
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dose": 0
+        },
+        {
+          "id": "anthracite",
+          "name": "Anthracite",
+          "dose": 1
+        },
+        {
+          "id": "anthracite_df",
+          "name": "Anthracite Double Factor",
+          "dose": 2
+        }
+      ]
+    },
+    {
+      "id": "darkwing",
+      "category": "pattern_modifier",
+      "inheritance": "autosomal_incomplete_dominant",
+      "status": "rare_source_dependent",
+      "aliases": [
+        "Darkwing",
+        "Blackwing"
+      ],
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal",
+          "dose": 0
+        },
+        {
+          "id": "darkwing",
+          "name": "Darkwing",
+          "dose": 1
+        },
+        {
+          "id": "darkwing_df",
+          "name": "Darkwing Double Factor",
+          "dose": 2
+        }
+      ],
+      "notes": [
+        "Keep separate from the blackwing mutation until the chosen reference standard resolves the terminology."
+      ]
+    },
+    {
+      "id": "faded",
+      "category": "colour_modifier",
+      "inheritance": "experimental",
+      "status": "experimental",
+      "enabled_by_default": false,
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal"
+        },
+        {
+          "id": "faded",
+          "name": "Faded"
+        }
+      ]
+    },
+    {
+      "id": "crest",
+      "category": "crest",
+      "inheritance": "polygenic_or_uncertain",
+      "status": "polygenic",
+      "enabled_by_default": false,
+      "alleles": [
+        {
+          "id": "unknown",
+          "name": "Polygenic/unknown state"
+        }
+      ],
+      "notes": [
+        "Do not treat Crest Factor as a standard two-allele Mendelian locus."
+      ]
+    },
+    {
+      "id": "english_grey",
+      "category": "grey",
+      "inheritance": "experimental",
+      "status": "historical_rare",
+      "enabled_by_default": false,
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal"
+        },
+        {
+          "id": "english_grey",
+          "name": "English Grey"
+        }
+      ]
+    },
+    {
+      "id": "recessive_grey",
+      "category": "grey",
+      "inheritance": "experimental",
+      "status": "historical_rare",
+      "enabled_by_default": false,
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal"
+        },
+        {
+          "id": "recessive_grey",
+          "name": "Recessive Grey"
+        }
+      ]
+    },
+    {
+      "id": "manto_negro",
+      "category": "rare_colour",
+      "inheritance": "experimental",
+      "status": "modern_rare_source_dependent",
+      "enabled_by_default": false,
+      "alleles": [
+        {
+          "id": "normal",
+          "name": "Normal"
+        },
+        {
+          "id": "manto_negro",
+          "name": "Manto Negro"
+        }
+      ]
+    }
+  ],
+  "compound_phenotypes": [
+    {
+      "id": "lacewing",
+      "name": "Lacewing",
+      "type": "compound",
+      "requires": [
+        {
+          "locus": "cinnamon",
+          "allele": "cinnamon"
+        },
+        {
+          "locus": "ino",
+          "allele": "ino"
+        }
+      ],
+      "inheritance_note": "Not an independent locus. Correct breeding requires Z-haplotype phase/linkage handling."
+    },
+    {
+      "id": "fullbody_greywing",
+      "name": "Fullbody Greywing",
+      "type": "compound",
+      "requires": [
+        {
+          "locus": "dilution",
+          "genotype": [
+            "clearwing",
+            "greywing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dark_eyed_clear",
+      "name": "Dark-Eyed Clear",
+      "type": "compound",
+      "requires_any": [
+        {
+          "locus": "clearflight_pied",
+          "visual": true
+        },
+        {
+          "locus": "dutch_pied",
+          "visual": true
+        }
+      ],
+      "requires_all": [
+        {
+          "locus": "recessive_pied",
+          "visual": true
+        }
+      ]
+    },
+    {
+      "id": "rainbow",
+      "name": "Rainbow",
+      "type": "named_combination",
+      "requires_all": [
+        {
+          "locus": "blue_series",
+          "condition": "blue_series_blue"
+        },
+        {
+          "locus": "opaline",
+          "visual": true
+        },
+        {
+          "locus": "dilution",
+          "condition": "clearwing"
+        },
+        {
+          "locus": "blue_series",
+          "condition": "yellowface_or_goldenface"
+        }
+      ],
+      "notes": [
+        "Named combination; exact standard/definition should be configurable."
+      ]
+    }
+  ],
+  "epistasis_rules": [
+    {
+      "id": "ino_masks_eumelanin",
+      "priority": 100,
+      "when": {
+        "locus": "ino",
+        "condition": "ino_visual"
+      },
+      "masks_categories": [
+        "melanin",
+        "many_pattern_traits"
+      ],
+      "preserve_genotype": true
+    },
+    {
+      "id": "tcb_dominates_ino",
+      "priority": 110,
+      "when": {
+        "locus": "ino",
+        "condition": "texas_clearbody_visual"
+      },
+      "effect": "resolve_as_texas_clearbody",
+      "preserve_genotype": true
+    },
+    {
+      "id": "opaline_masks_blackface",
+      "priority": 80,
+      "when": {
+        "locus": "opaline",
+        "condition": "visual"
+      },
+      "target": {
+        "locus": "blackface",
+        "condition": "visual"
+      },
+      "effect": "visually_mask",
+      "preserve_genotype": true
+    },
+    {
+      "id": "yellowface_green_mask",
+      "priority": 70,
+      "when": {
+        "locus": "blue_series",
+        "condition": "green_series"
+      },
+      "target": {
+        "locus": "blue_series",
+        "condition": "yellowface_or_goldenface"
+      },
+      "effect": "visually_reduced_or_masked",
+      "preserve_genotype": true
+    },
+    {
+      "id": "df_spangle_pattern_reduction",
+      "priority": 75,
+      "when": {
+        "locus": "spangle",
+        "condition": "double_factor"
+      },
+      "masks_categories": [
+        "some_pattern_markings"
+      ],
+      "preserve_genotype": true
+    }
+  ],
+  "linkage": {
+    "enabled": true,
+    "linked_groups": [
+      {
+        "id": "z_cinnamon_ino",
+        "chromosome": "Z",
+        "loci": [
+          "cinnamon",
+          "ino"
+        ],
+        "importance": "high",
+        "notes": [
+          "Required to distinguish coupling/cis and repulsion/trans phase.",
+          "Lacewing is associated with Cinnamon + Ino on the same Z haplotype.",
+          "Recombination frequency should be configurable from the selected reference source rather than hard-coded globally."
+        ],
+        "default_recombination_rate": 0.03
+      }
+    ]
+  },
+  "combination_examples": [
+    {
+      "id": "spangle_opaline",
+      "traits": [
+        "spangle",
+        "opaline"
+      ],
+      "expected_model": "independent_loci"
+    },
+    {
+      "id": "texas_clearbody_opaline",
+      "traits": [
+        "texas_clearbody",
+        "opaline"
+      ],
+      "expected_model": "ino_allelic_series_plus_opaline"
+    },
+    {
+      "id": "ino_recessive_pied",
+      "traits": [
+        "ino",
+        "recessive_pied"
+      ],
+      "expected_model": "ino_visual_with_pied_genotype_preserved"
+    },
+    {
+      "id": "blackface_blackwing",
+      "traits": [
+        "blackface",
+        "blackwing"
+      ],
+      "expected_model": "independent_autosomal_recessives"
+    },
+    {
+      "id": "cinnamon_opaline",
+      "traits": [
+        "cinnamon",
+        "opaline"
+      ],
+      "expected_model": "linked_z_loci"
+    },
+    {
+      "id": "clearwing_greywing",
+      "traits": [
+        "clearwing",
+        "greywing"
+      ],
+      "expected_model": "same_locus_heteroallelic_compound"
+    }
+  ],
+  "validation_rules": [
+    "A female cannot be represented as split for a standard Z-linked recessive mutation.",
+    "Alleles belonging to the same locus cannot be selected as independent Boolean genes.",
+    "Texas Clearbody and Ino are alleles at the same Z-linked locus.",
+    "Lacewing is a compound phenotype, not an independent mutation locus.",
+    "Clearwing and Greywing belong to the same dilution locus in this model.",
+    "Phenotype and genotype must be stored separately.",
+    "Masked traits remain genetically present.",
+    "Rare/experimental mutations must be disable-able.",
+    "Polygenic/uncertain traits must not be forced into Mendelian probability calculations without an explicit approximation mode."
+  ],
+  "architecture_contract": {
+    "bird": {
+      "sex": "male|female",
+      "genotype": "map<locus_id, locus_genotype>",
+      "z_haplotypes": "optional for linked Z loci",
+      "source_confidence": "high|medium|low|user_confirmed"
+    },
+    "offspring_result": {
+      "sex": "male|female",
+      "genotype": "complete_genotype",
+      "visible_traits": [],
+      "masked_traits": [],
+      "carrier_traits": [],
+      "compound_traits": [],
+      "display_name": "",
+      "probability": 0
+    }
+  }
+}

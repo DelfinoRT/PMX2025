@@ -1,0 +1,104 @@
+La aplicación que construiría
+
+La dividiría en estos componentes:
+
+┌─────────────────────────────┐
+│       BIRD GENOTYPE         │
+│                             │
+│ sex                         │
+│ loci                        │
+│ alleles                     │
+│ splits                      │
+│ linkage / phase             │
+└──────────────┬──────────────┘
+               ↓
+┌─────────────────────────────┐
+│       GAMETE ENGINE         │
+│                             │
+│ autosomal                   │
+│ ZZ/ZW                       │
+│ linked genes                │
+│ recombination               │
+└──────────────┬──────────────┘
+               ↓
+┌─────────────────────────────┐
+│      OFFSPRING ENGINE       │
+│                             │
+│ genotype combinations       │
+│ probability                 │
+└──────────────┬──────────────┘
+               ↓
+┌─────────────────────────────┐
+│     PHENOTYPE ENGINE        │
+│                             │
+│ base colour                 │
+│ modifiers                   │
+│ pattern                     │
+│ pigmentation                │
+└──────────────┬──────────────┘
+               ↓
+┌─────────────────────────────┐
+│    EPISTASIS / MASKING      │
+│                             │
+│ Ino                         │
+│ TCB > Ino                   │
+│ Opaline/Blackface           │
+│ Pied combinations           │
+│ dilution interactions       │
+└──────────────┬──────────────┘
+               ↓
+┌─────────────────────────────┐
+│       FINAL PHENOTYPE       │
+│                             │
+│ "Albino Opalino Pío"        │
+│                             │
+│ + hidden genetics           │
+│ + splits                    │
+│ + probability               │
+└─────────────────────────────┘
+
+Esto además permite que en el futuro agreguemos mutaciones raras sin tener que reescribir el motor.
+
+Especialmente importante para el Ino
+
+Yo le daría al motor un sistema explícito de prioridad de expresión.
+
+Por ejemplo, conceptualmente:
+
+Ino
+  ↓
+elimina/reduce fuertemente eumelanina
+  ↓
+Cinnamon → prácticamente oculto
+Blackface → oculto/reducido
+Blackwing → oculto/reducido
+muchos patrones → ocultos/reducidos
+  ↓
+pero TODOS siguen en el genotipo
+
+Por tanto, el resultado podría ser:
+
+Albino — genéticamente Opalino + Pío Recesivo + Blackface
+
+en vez de simplemente:
+
+Albino
+
+Eso va a ser muchísimo más útil para un criador.
+
+También debemos mantener dos resultados diferentes:
+
+Fenotipo visual
+
+Albino
+
+Genética conocida
+
+Ino/ino
+Opaline/opaline
+Recessive Pied/recessive Pied
+Blackface/Blackface
+
+Así podremos decir:
+
+“Visualmente parece Albino, pero genéticamente porta/expresa X, Y y Z.”

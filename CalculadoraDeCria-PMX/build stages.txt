@@ -1,0 +1,13 @@
+mutations.json
+        ↓
+genetics-engine.js
+        ↓
+gamete-generator.js
+        ↓
+offspring-engine.js
+        ↓
+phenotype-engine.js
+        ↓
+epistasis-engine.js
+        ↓
+calculator UI

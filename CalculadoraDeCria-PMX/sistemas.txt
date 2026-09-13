@@ -1,0 +1,171 @@
+Sí. Y con esta ampliación cambia bastante la arquitectura: no debemos construir una calculadora de “mutación A × mutación B”, sino un motor genético por loci, capaz de representar el genotipo completo de cada ave y después derivar el fenotipo visible.
+
+La investigación adicional confirma varios puntos importantes: Opalino es ligado al sexo, Spangle es incompletamente dominante, Clearwing/Greywing/Dilute pertenecen a una serie alélica del locus de dilución, y Texas Clearbody e Ino forman una serie alélica en el locus ino. Además, Lacewing no debería ser un locus independiente, sino una combinación de Cinnamon + Ino.
+
+He preparado el documento base JSON para que lo uses como fundamento de la aplicación:
+
+Descargar budgerigar_genetics_architecture_v1.json
+
+La decisión arquitectónica más importante
+
+Una ave debe almacenarse aproximadamente así:
+
+{
+  "sex": "male",
+  "genotype": {
+    "blue_series": ["blue_1", "blue_1"],
+    "dark_factor": ["normal", "dark"],
+    "spangle": ["normal", "spangle"],
+    "opaline": ["opaline", "normal"],
+    "ino": ["normal", "texas_clearbody"],
+    "recessive_pied": ["normal", "recessive_pied"]
+  }
+}
+
+Y no simplemente:
+
+{
+  "mutations": [
+    "blue",
+    "cobalt",
+    "spangle",
+    "opaline",
+    "texas_clearbody",
+    "recessive_pied"
+  ]
+}
+
+Porque el segundo modelo no puede distinguir correctamente:
+
+visual vs. split;
+SF vs. DF;
+dos alelos distintos del mismo locus;
+mutaciones que se enmascaran;
+combinaciones;
+mutaciones ligadas al sexo;
+fase/coupling de genes Z-linked;
+genotipo oculto bajo un fenotipo Ino;
+ni la diferencia entre una mutación y un fenotipo compuesto.
+Ejemplos que el motor debe poder representar
+
+Perlado/Spangle + Opalino
+
+spangle = SF
+opaline = visual
+
+Resultado: SF Spangle Opalino.
+
+Texas Clearbody + Opalino
+
+ino = Texas Clearbody
+opaline = visual
+
+Resultado: Texas Clearbody Opalino.
+
+Y aquí hay una distinción crítica: TCB e Ino no son dos mutaciones independientes. Son alelos del mismo locus ino; un macho TCB/ino se expresa como Texas Clearbody, no como “TCB + Ino”.
+
+Pío + Lutino/Albino
+
+recessive_pied = visual
+ino = visual
+
+El ave sigue siendo genéticamente pía, aunque el Ino pueda eliminar gran parte de la melanina y hacer que el patrón de pío resulte prácticamente invisible.
+
+Esto es fundamental: el fenotipo visible no puede sustituir al genotipo.
+
+Enmascaramiento
+
+El motor que recomiendo debe producir tres capas:
+
+GENOTIPO
+   ↓
+MUTACIONES GENÉTICAMENTE PRESENTES
+   ↓
+INTERACCIONES / EPISTASIS
+   ↓
+FENOTIPO VISIBLE
+
+Por ejemplo:
+
+{
+  "genotype": {
+    "ino": "ino",
+    "blackface": "blackface/blackface",
+    "opaline": "opaline"
+  },
+  "genetically_present": [
+    "Ino",
+    "Blackface",
+    "Opaline"
+  ],
+  "visible": [
+    "Albino/Lutino",
+    "Opaline pattern may be reduced"
+  ],
+  "masked": [
+    "Blackface"
+  ]
+}
+
+No queremos perder Blackface simplemente porque el Ino lo haya ocultado.
+
+La propia literatura de estándares reconoce que Blackface idealmente se evalúa sin combinaciones que lo diluyan o enmascaren, lo que refuerza la necesidad de separar genotipo de apariencia.
+
+Y hay otra cuestión muy importante: combinaciones
+
+No todas las cosas que un criador llama “mutación” deben convertirse en un locus.
+
+Por ejemplo:
+
+Lacewing
+=
+Cinnamon + Ino
+
+Lacewing no debe tener:
+
+{
+  "locus": "lacewing"
+}
+
+sino algo conceptualmente como:
+
+{
+  "compound": true,
+  "requires": {
+    "cinnamon": "visual",
+    "ino": "visual"
+  }
+}
+
+La evidencia genética considera Lacewing una combinación Cinnamon + Ino, con cuestiones de fase/recombinación en el cromosoma Z.
+
+Lo mismo ocurre con Dark-Eyed Clear, Rainbow, Fullbody Greywing y otras combinaciones.
+
+El sistema de dilución también necesita un tratamiento especial
+
+No podemos tener:
+
+"dilute": true,
+"greywing": true,
+"clearwing": true
+
+porque son alelos del mismo sistema/locus.
+
+Debe existir algo parecido a:
+
+"dilution": {
+  "allele_1": "clearwing",
+  "allele_2": "greywing"
+}
+
+y entonces el motor produce:
+
+Clearwing/Clearwing → Clearwing
+
+Greywing/Greywing → Greywing
+
+Dilute/Dilute → Dilute
+
+Clearwing/Greywing → Fullbody Greywing
+
+Este tipo de interacción está específicamente documentado en las tablas genéticas.
